@@ -619,6 +619,9 @@
         </form>
       </section>
       
+      <!-- 카카오톡 공유 SDK -->
+<script src="https://tapi.kakao.com/js/v1/kakao.min.js"></script>
+      
       <!-- Font Awesome CDN -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
       <section class="share-section">
@@ -924,7 +927,53 @@
       });
     }
 
-    function shareKakao() { window.open(`https://sharer.kakao.com/talk/friends/picker/link?url=${encodeURIComponent(window.location.href)}`, '_blank', 'width=500,height=600'); }
+    // 카카오 SDK 초기화 (발급받으신 JavaScript 키)
+    if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
+      Kakao.init('fcba721351b7e4a0a2b49a7ae6e8ee82'); 
+    }
+
+    function shareKakao() {
+      const currentUrl = window.location.href;
+      const urlParams = new URLSearchParams(window.location.search);
+      const currentLang = urlParams.get('lang') || 'ko';
+      
+      let title = "킬리안 & 소연의 결혼식에 초대합니다";
+      let desc = "2027년 9월 26일 메이필드 호텔 초례청";
+      
+      if (currentLang === 'en') {
+        title = "Kilian & Soyeon's Wedding Invitation";
+        desc = "September 26, 2027 | Mayfield Hotel, Seoul";
+      } else if (currentLang === 'de') {
+        title = "Einladung zur Hochzeit von Kilian & Soyeon";
+        desc = "26. September 2027 | Mayfield Hotel, Seoul";
+      }
+
+      if (typeof Kakao !== 'undefined' && Kakao.isInitialized()) {
+        Kakao.Share.sendDefault({
+          objectType: 'feed',
+          content: {
+            title: title,
+            description: desc,
+            imageUrl: 'https://momandjsh.github.io/kiliansoyeon_korea/image/000.jpg',
+            link: {
+              mobileWebUrl: currentUrl,
+              webUrl: currentUrl,
+            },
+          },
+          buttons: [
+            {
+              title: '청첩장 보기 (View Invitation)',
+              link: {
+                mobileWebUrl: currentUrl,
+                webUrl: currentUrl,
+              },
+            },
+          ],
+        });
+      } else {
+        window.open(`https://sharer.kakao.com/talk/friends/picker/link?url=${encodeURIComponent(currentUrl)}`, '_blank');
+      }
+    }
 
     // 페이지 로드 시 즉시 실행
     document.addEventListener('DOMContentLoaded', () => {
