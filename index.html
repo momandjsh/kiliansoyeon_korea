@@ -882,9 +882,27 @@
         }
       });
 
-      // 💡 사라졌던 URL 업데이트 기능 복구 (?lang=ko 붙이기)
-      const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?lang=' + lang;
-      window.history.replaceState({ path: newUrl }, '', newUrl);
+      // 언어 설정 및 번역 적용 함수
+    function setLanguage(lang) {
+      if (!translations[lang]) lang = 'ko';
+
+      // 1. 언어 버튼 활성화 클래스 변경
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById(`btn-${lang}`);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      // 2. data-i18n을 가진 모든 엘리먼트 텍스트 변경
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          el.innerHTML = translations[lang][key];
+        }
+      });
+
+      // 3. 현재 URL 경로(kiliansoyeon_korea 등)를 유지하면서 ?lang= 파라미터만 안전하게 업데이트
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.set('lang', lang);
+      window.history.replaceState(null, '', currentUrl.search + currentUrl.hash);
 
       // 슬라이더 새로고침 (깨짐 방지)
       if (gallerySwiper) { setTimeout(() => { gallerySwiper.update(); }, 100); }
@@ -953,14 +971,23 @@
     // 공유 기능 (이전과 동일)
     function shareWhatsApp() { window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(window.location.href)}`, '_blank'); }
     function copyLink() {
-  const currentUrl = window.location.href; // 👈 현재 창의 전체 URL (파라미터 포함) 가져오기
-  navigator.clipboard.writeText(currentUrl).then(() => {
-    alert("현재 언어 설정이 포함된 링크가 복사되었습니다!");
-  }).catch(() => {
-    // 복사 실패 시 예비 처리
-    alert("링크 복사에 실패했습니다.");
-  });
-}
+      const currentUrl = window.location.href; // 현재 전체 URL 가져오기
+      
+      // 현재 선택된 언어 가져오기 (URL 파라미터 기준, 없으면 'ko')
+      const urlParams = new URLSearchParams(window.location.search);
+      const currentLang = urlParams.get('lang') || 'ko';
+
+      // 해당 언어의 msgCopySuccess 메시지 가져오기
+      const successMsg = (translations[currentLang] && translations[currentLang].msgCopySuccess)
+                         ? translations[currentLang].msgCopySuccess
+                         : "현재 언어 설정이 포함된 링크가 복사되었습니다!";
+
+      navigator.clipboard.writeText(currentUrl).then(() => {
+        alert(successMsg);
+      }).catch(() => {
+        alert("Copy failed / 복사 실패");
+      });
+    }
     function shareKakao() { window.open(`https://sharer.kakao.com/talk/friends/picker/link?url=${encodeURIComponent(window.location.href)}`, '_blank', 'width=500,height=600'); }
 
     // 접속하자마자 언어가 바로 적용되도록 수정
