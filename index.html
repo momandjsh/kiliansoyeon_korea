@@ -27,10 +27,12 @@
 
   <style>
     :root {
-      --primary-color: #2b3a2a;
-      --accent-color: #889e81;
-      --bg-cream: #faf8f5;
-      --text-dark: #2c3531;
+      --primary-color: #5c3a21; /* 진한 갈색 (제목, 버튼 색상 등) */
+      --accent-color: #c47b4b;  /* 따뜻한 주황색 (타임라인 점 등 포인트) */
+      --bg-cream: #fcf9f2;      /* 메인 컨텐츠 바탕 (따뜻한 크림색) */
+      --bg-section: #f5eedf;    /* Details, Travel 등 강조 구역 배경 (연한 모래색) */
+      --text-dark: #3a2e26;     /* 기본 글씨 색상 */
+      --border-color: #e8dbce;  /* 테두리(선) 색상 */
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -100,7 +102,7 @@
     .intro-video-hero video {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       cursor: pointer;
     }
 
