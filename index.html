@@ -422,6 +422,16 @@
         <div class="letter-body" data-i18n="invitationBody"></div>
       </section>
 
+      <!-- 💡 초대의 글 바로 아래 비디오 영역 복구 -->
+      <section class="content-section video-section">
+        <div class="video-container">
+          <video autoplay loop muted playsinline preload="auto">
+            <source src=""https://momandjsh.github.io/kilian-soyeon-germany/image/C1071_1 (2).mp4" type="video/mp4">
+            귀하의 브라우저는 비디오 태그를 지원하지 않습니다.
+          </video>
+        </div>
+      </section>
+
       <!-- 일시 및 장소 -->
       <section class="content-section" style="background: #f4efe6;">
         <h2 class="section-title">Details</h2>
@@ -538,8 +548,6 @@
         <h2 class="section-title">Gallery</h2>
         <div class="swiper gallery-swiper">
           <div class="swiper-wrapper">
-             <!-- 독일 깃허브 레포지토리의 new_image 경로를 절대 주소로 가져옵니다 -->
-             <div class="swiper-wrapper">
             <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/image/20260726_162618.jpg" alt="Wedding Snap 0"></div>
             <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03744.jpg" alt="Wedding Snap 1"></div>
             <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03853.jpg" alt="Wedding Snap 2"></div>
@@ -567,12 +575,14 @@
             <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC02869.jpg" alt="Wedding Snap 24"></div>
             <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC02907.jpg" alt="Wedding Snap 25"></div>
             <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC02930.jpg" alt="Wedding Snap 26"></div>
-            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-효성/../new_image/DSC02963.jpg" alt="Wedding Snap 27"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC02963.jpg" alt="Wedding Snap 27"></div>
             <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03047.jpg" alt="Wedding Snap 28"></div>
             <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03173.jpg" alt="Wedding Snap 29"></div>
             <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC02741.jpg" alt="Wedding Snap 30"></div>
           </div>
           <div class="swiper-pagination"></div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
         </div>
       </section>
 
@@ -842,7 +852,7 @@
     function copyLink() { navigator.clipboard.writeText(window.location.href).then(() => alert("링크 복사 완료!")); }
     function shareKakao() { window.open(`https://sharer.kakao.com/talk/friends/picker/link?url=${encodeURIComponent(window.location.href)}`, '_blank', 'width=500,height=600'); }
 
-    // 초기 페이지 로드 시 URL 파라미터에 맞춰 언어 설정 실행
+    // 접속하자마자 언어가 바로 적용되도록 수정
     document.addEventListener('DOMContentLoaded', () => {
       const initialLang = getInitialLanguage();
       setLanguage(initialLang);
