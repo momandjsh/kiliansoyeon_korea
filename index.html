@@ -287,14 +287,18 @@
     }
     .gallery-swiper .swiper-slide {
       width: 100%;
-      height: 500px; /* 모바일에 맞게 약간 조정 */
+      height: 500px;
       border-radius: 8px;
       overflow: hidden;
+      background-color: var(--bg-cream); /* 👈 남는 여백을 청첩장 배경색과 맞춤 */
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .gallery-swiper .swiper-slide img {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* 꽉 차게 변경 */
+      object-fit: contain; /* 👈 사진이 잘리지 않고 원본 비율로 다 들어오게 설정 */
       display: block;
     }
     .swiper-pagination-bullet-active {
@@ -535,12 +539,38 @@
         <div class="swiper gallery-swiper">
           <div class="swiper-wrapper">
              <!-- 독일 깃허브 레포지토리의 new_image 경로를 절대 주소로 가져옵니다 -->
-             <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03744.jpg" alt="Wedding Snap"></div>
-             <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03853.jpg" alt="Wedding Snap"></div>
-             <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03998.jpg" alt="Wedding Snap"></div>
-             <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC04020.jpg" alt="Wedding Snap"></div>
-             <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC04112.jpg" alt="Wedding Snap"></div>
-             <!-- 필요하신 만큼 이미지 태그를 추가하세요 -->
+             <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/image/20260726_162618.jpg" alt="Wedding Snap 0"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03744.jpg" alt="Wedding Snap 1"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03853.jpg" alt="Wedding Snap 2"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03998.jpg" alt="Wedding Snap 3"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC04020.jpg" alt="Wedding Snap 4"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC04112.jpg" alt="Wedding Snap 5"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC04178.jpg" alt="Wedding Snap 6"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC04248.jpg" alt="Wedding Snap 7"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC04275.jpg" alt="Wedding Snap 8"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC04322.jpg" alt="Wedding Snap 9"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC04342.jpg" alt="Wedding Snap 10"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC04343.jpg" alt="Wedding Snap 11"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03491.jpg" alt="Wedding Snap 12"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03622.jpg" alt="Wedding Snap 13"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03928.jpg" alt="Wedding Snap 14"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03810.jpg" alt="Wedding Snap 15"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03190.jpg" alt="Wedding Snap 16"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03282.jpg" alt="Wedding Snap 17"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03332.jpg" alt="Wedding Snap 18"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03400.jpg" alt="Wedding Snap 19"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03413.jpg" alt="Wedding Snap 20"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03467.jpg" alt="Wedding Snap 21"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC02752.jpg" alt="Wedding Snap 22"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC02803.jpg" alt="Wedding Snap 23"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC02869.jpg" alt="Wedding Snap 24"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC02907.jpg" alt="Wedding Snap 25"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC02930.jpg" alt="Wedding Snap 26"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-효성/../new_image/DSC02963.jpg" alt="Wedding Snap 27"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03047.jpg" alt="Wedding Snap 28"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC03173.jpg" alt="Wedding Snap 29"></div>
+            <div class="swiper-slide"><img src="https://momandjsh.github.io/kilian-soyeon-germany/new_image/DSC02741.jpg" alt="Wedding Snap 30"></div>
           </div>
           <div class="swiper-pagination"></div>
         </div>
