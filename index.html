@@ -426,14 +426,15 @@
       <!-- 초대의 글 -->
       <section class="content-section">
         <h2 class="section-title">Invitation</h2>
-        <div class="letter-body" data-i18n="invitationBody"></div>
+        <!-- 💡 id="invitationText" 추가 -->
+        <div class="letter-body" id="invitationText" data-i18n="invitationBody"></div>
       </section>
 
       <!-- 초대의 글 바로 아래 비디오 영역 -->
       <section class="content-section video-section">
         <div class="video-container">
           <video autoplay loop muted playsinline preload="auto">
-            <source src="https://momandjsh.github.io/kilian-soyeon-germany/image/C1071_1%20(2).mp4" type="video/mp4">
+            <source src="image/C1072.mp4" type="video/mp4">
             귀하의 브라우저는 비디오 태그를 지원하지 않습니다.
           </video>
         </div>
@@ -641,6 +642,20 @@
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
+    // 💡 [추가] 스크립트가 실행되는 순간 URL을 파악해 초대의 글을 즉시 채워넣기
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const langParam = urlParams.get('lang');
+      const targetLang = (langParam && translations[langParam]) ? langParam : 'ko';
+      
+      // 번역 데이터가 있다면 DOM이 뜨기도 전에 미리 데이터 준비
+      document.addEventListener('DOMContentLoaded', () => {
+        const inviteEl = document.getElementById('invitationText');
+        if (inviteEl && translations[targetLang] && translations[targetLang].invitationBody) {
+          inviteEl.innerHTML = translations[targetLang].invitationBody;
+        }
+      });
+    })();
     // --- 1. 비디오 오프닝 로직 ---
     const introVideoSection = document.getElementById('introVideoSection');
     const introVideo = document.getElementById('introVideo');
