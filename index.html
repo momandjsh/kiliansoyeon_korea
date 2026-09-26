@@ -82,7 +82,7 @@
       position: fixed;
       top: 15px;
       right: 15px;
-      z-index: 1000;
+      z-index: 6000;
       background: rgba(255,255,255,0.92);
       padding: 6px 12px;
       border-radius: 20px;
@@ -686,20 +686,21 @@
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
-    // 💡 [추가] 스크립트가 실행되는 순간 URL을 파악해 초대의 글을 즉시 채워넣기
-    (function() {
+    // --- 접속 시 URL 파라미터 감지 함수 ---
+    function getInitialLanguage() {
       const urlParams = new URLSearchParams(window.location.search);
       const langParam = urlParams.get('lang');
-      const targetLang = (langParam && translations[langParam]) ? langParam : 'ko';
-      
-      // 번역 데이터가 있다면 DOM이 뜨기도 전에 미리 데이터 준비
-      document.addEventListener('DOMContentLoaded', () => {
-        const inviteEl = document.getElementById('invitationText');
-        if (inviteEl && translations[targetLang] && translations[targetLang].invitationBody) {
-          inviteEl.innerHTML = translations[targetLang].invitationBody;
-        }
-      });
-    })();
+      if (langParam && translations[langParam]) return langParam;
+
+      const hashParam = window.location.hash.replace('#', '');
+      if (hashParam && translations[hashParam]) return hashParam;
+
+      const userLang = navigator.language || navigator.userLanguage || '';
+      if (userLang.startsWith('de')) return 'de';
+      if (userLang.startsWith('en')) return 'en';
+      return 'ko';
+    }
+
     // --- 1. 비디오 오프닝 로직 ---
     const introVideoSection = document.getElementById('introVideoSection');
     const introVideo = document.getElementById('introVideo');
@@ -740,7 +741,6 @@
       }, 1500); // fade-out 애니메이션 시간
     }
 
-
     // --- 2. BGM 토글 로직 ---
     function toggleBGM() {
       if (isPlaying) {
@@ -753,7 +753,6 @@
         isPlaying = true;
       }
     }
-
 
     // --- 3. 다국어 번역 로직 ---
     const translations = {
