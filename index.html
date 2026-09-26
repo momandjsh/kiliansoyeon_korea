@@ -44,24 +44,38 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Noto Sans KR', 'Nanum Pen Script', sans-serif;
-      background-color: #dfd4c5; /* 전체 바깥쪽 배경도 가을톤으로 맞춤 */
+      background-color: #dfd4c5; /* 배경색 유지 */
       color: var(--text-dark);
       display: flex;
       justify-content: center;
+      align-items: flex-start;
       min-height: 100vh;
-      overflow-x: hidden;
       margin: 0;
+      padding: 0;
+      overflow-x: hidden;
     }
 
     .app-container {
       width: 100%;
-      max-width: 430px;
+      max-width: 430px; /* 스마트폰 비율 유지 */
       background: var(--bg-cream);
       position: relative;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      box-shadow: 0 0 20px rgba(0,0,0,0.15);
       min-height: 100vh;
+      margin: 0 auto; /* 넓은 화면에서도 항상 중앙 정렬 */
     }
 
+    /* 💡 아이패드 가로 및 넓은 화면용 미디어 쿼리 */
+    @media (min-width: 600px) {
+      body {
+        padding: 20px 0; /* 태블릿/PC 화면에서 상하 여백을 주어 카드처럼 예쁘게 표시 */
+      }
+      .app-container {
+        border-radius: 16px; /* 모서리를 부드럽게 라운딩 */
+        overflow: hidden;
+      }
+    }
+    
     /* 언어 선택 버튼 */
     .lang-switcher {
       position: fixed;
