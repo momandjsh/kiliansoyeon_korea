@@ -808,6 +808,19 @@
     // 언어 설정 및 안전한 URL 업데이트 함수
     function setLanguage(lang) {
       if (!translations[lang]) lang = 'ko';
+      if (lang === 'en') {
+        document.title = "Kilian & Soyeon's Wedding Invitation";
+        document.getElementById('og-title')?.setAttribute('content', "Kilian & Soyeon's Wedding Invitation");
+        document.getElementById('og-description')?.setAttribute('content', "September 26, 2027 | Mayfield Hotel, Seoul");
+      } else if (lang === 'de') {
+        document.title = "Einladung zur Hochzeit von Kilian & Soyeon";
+        document.getElementById('og-title')?.setAttribute('content', "Einladung zur Hochzeit von Kilian & Soyeon");
+        document.getElementById('og-description')?.setAttribute('content', "26. September 2027 | Mayfield Hotel, Seoul");
+      } else {
+        document.title = "킬리안 & 소연의 결혼식에 초대합니다";
+        document.getElementById('og-title')?.setAttribute('content', "킬리안 & 소연의 결혼식에 초대합니다");
+        document.getElementById('og-description')?.setAttribute('content', "2027년 9월 26일 메이필드 호텔 초례청");
+      }
 
       // 1. 언어 버튼 활성화 표시
       document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
