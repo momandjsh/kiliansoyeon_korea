@@ -25,11 +25,21 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
   <style>
+    .video-container {
+      width: 100%;
+      max-height: 600px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      background: #000;
+      line-height: 0; /* 하단 미세한 공백 제거 */
+    }
     .video-container video {
       width: 100%;
-      height: auto;
+      height: 100%;
       display: block;
       object-fit: cover;
+      object-position: center center;
     }
     :root {
       --primary-color: #5c3a21;
