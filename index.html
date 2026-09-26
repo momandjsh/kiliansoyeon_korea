@@ -506,25 +506,25 @@
           </a>
         </div>
 
-        <!-- 💡 2. 지도와 주소 사이: 국내 내비게이션 3사 연동 버튼 모음 -->
+        <!-- 지도와 주소 사이: 국내 내비게이션 3사 연동 버튼 모음 -->
         <div style="display: flex; gap: 8px; margin-bottom: 20px;">
           <!-- 네이버 지도 -->
           <a href="https://map.naver.com/p/search/메이필드호텔" target="_blank" style="flex: 1; text-decoration: none;">
-            <div style="padding: 11px 4px; text-align: center; background: #03C75A; color: #fff; font-size: 13px; font-weight: bold; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08);">
+            <div data-i18n="btnNaver" style="padding: 11px 4px; text-align: center; background: #03C75A; color: #fff; font-size: 13px; font-weight: bold; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08);">
               💚 네이버지도
             </div>
           </a>
           
           <!-- 카카오내비 -->
           <a href="https://map.kakao.com/link/search/메이필드호텔" target="_blank" style="flex: 1; text-decoration: none;">
-            <div style="padding: 11px 4px; text-align: center; background: #FEE500; color: #3C1E1E; font-size: 13px; font-weight: bold; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08);">
+            <div data-i18n="btnKakao" style="padding: 11px 4px; text-align: center; background: #FEE500; color: #3C1E1E; font-size: 13px; font-weight: bold; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08);">
               💛 카카오내비
             </div>
           </a>
           
           <!-- T맵 -->
-          <a href="https://surl.tmap.co.kr/30db9f18" target="_blank" style="flex: 1; text-decoration: none;">
-            <div style="padding: 11px 4px; text-align: center; background: #1C3144; color: #fff; font-size: 13px; font-weight: bold; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08);">
+          <a href="tmap://route?rGoName=메이필드호텔&rGoX=126.8166&rGoY=37.5429" target="_blank" style="flex: 1; text-decoration: none;">
+            <div data-i18n="btnTmap" style="padding: 11px 4px; text-align: center; background: #1C3144; color: #fff; font-size: 13px; font-weight: bold; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08);">
               💙 T맵
             </div>
           </a>
@@ -766,6 +766,9 @@
         lblMessage: "축하 메시지",
         btnSubmit: "RSVP 제출하기",
         shareTitle: "청첩장 공유하기"
+        btnNaver: "💚 네이버지도",
+        btnKakao: "💛 카카오내비",
+        btnTmap: "💙 T맵",
       },
       en: {
         invitationBody: "Dear friends and family<br><br>We are getting married!<br>We warmly invite you to join us on our special day as we celebrate our wedding.<br><br><span class=\"invitation-name\">🤵 Kilian Scheffter</span><br><span class=\"invitation-name\">👰 Soyeon Jun</span>",
@@ -796,6 +799,9 @@
         lblMessage: "Message for the couple",
         btnSubmit: "Submit RSVP",
         shareTitle: "Share Invitation"
+        btnNaver: "💚 Naver Map",
+        btnKakao: "💛 Kakao Navi",
+        btnTmap: "💙 Tmap",
       },
       de: {
         invitationBody: "Liebe Freunde und Familie<br><br>Wir heiraten!<br>Wir laden euch herzlich ein, diesen besonderen Tag gemeinsam mit uns zu feiern.<br><br><span class=\"invitation-name\">🤵 Kilian Scheffter</span><br><span class=\"invitation-name\">👰 Soyeon Jun</span>",
@@ -827,6 +833,9 @@
         lblMessage: "Nachricht an das Brautpaar",
         btnSubmit: "RSVP Absenden",
         shareTitle: "Einladung teilen"
+        btnNaver: "💚 Naver Map",
+        btnKakao: "💛 Kakao Navi",
+        btnTmap: "💙 Tmap",
       },
     };
 
