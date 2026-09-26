@@ -307,9 +307,10 @@
       object-fit: contain; /* 👈 사진이 잘리지 않고 원본 비율로 다 들어오게 설정 */
       display: block;
     }
-    .swiper-pagination-bullet-active {
-      background-color: var(--primary-color) !important;
+    .gallery-swiper .swiper-pagination {
+      display: none !important;
     }
+    
 
     /* RSVP 폼 */
     .rsvp-form label {
@@ -749,7 +750,6 @@
         faq3: "To help us arrange the seating and catering smoothly, please RSVP no later than August 1st.",
         faqQ4: "What if it rains?",
         faq4: "The courtyard is outdoors, but a large tent is installed to cover the area in case of rain, so the ceremony will proceed beautifully regardless of the weather.",
-      },
         lblName: "Name",
         lblAttend: "Attendance",
         optYes: "Ja/Yes/참석합니다",
