@@ -26,6 +26,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
   <style>
+    .video-container video {
+      width: 100%;       /* 가로를 화면에 꽉 채움 */
+      height: auto;      /* 비율에 맞게 높이가 자동으로 조절됨 */
+      display: block;
+      object-fit: cover;
+    }
     :root {
       --primary-color: #5c3a21; /* 진한 갈색 (글씨, 버튼 등 포인트) */
       --accent-color: #c47b4b; /* 따뜻한 주황 (타임라인 점 등 보조 포인트) */
@@ -418,10 +424,8 @@
 
       <!-- 초대의 글 -->
       <section class="content-section">
-        <h2 class="section-title"></h2>
-        <div class="letter-body" data-i18n="invitationBody">
-          지구 반대편에서 만난 저희 두 사람이<br>서로의 손을 잡고 새로운 시작을 함께하려 합니다.<br>한국의 아름다운 전통혼례로 펼쳐질<br>저희의 시작을 함께 축하해 주세요.<br><br>🌿<span class="invitation-name">신랑 킬리안 쉐프터</span>🌿<br>🌿<span class="invitation-name">신부 전소연</span>🌿
-        </div>
+        <h2 class="section-title">Invitation</h2>
+        <div class="letter-body" data-i18n="invitationBody"></div>
       </section>
 
       <!-- 초대의 글 바로 아래 비디오 영역 -->
@@ -519,27 +523,31 @@
       <!-- FAQ -->
       <section class="content-section">
         <h2 class="section-title">FAQ</h2>
+        
         <div class="faq-item">
           <div class="faq-question" onclick="toggleFaq(this)">
-            <span>아이들을 동반해도 되나요?</span> <span>+</span>
+            <span data-i18n="faqQ1">아이들을 동반해도 되나요?</span> <span>+</span>
           </div>
           <div class="faq-answer" data-i18n="faq1"></div>
         </div>
+
         <div class="faq-item">
           <div class="faq-question" onclick="toggleFaq(this)">
-            <span>주차는 가능한가요?</span> <span>+</span>
+            <span data-i18n="faqQ2">주차는 가능한가요?</span> <span>+</span>
           </div>
           <div class="faq-answer" data-i18n="faq2"></div>
         </div>
+
         <div class="faq-item">
           <div class="faq-question" onclick="toggleFaq(this)">
-            <span>참석 여부(RSVP)는 언제까지 알려주면 되나요?</span> <span>+</span>
+            <span data-i18n="faqQ3">참석 여부(RSVP)는 언제까지 알려주면 되나요?</span> <span>+</span>
           </div>
           <div class="faq-answer" data-i18n="faq3"></div>
         </div>
+
         <div class="faq-item">
           <div class="faq-question" onclick="toggleFaq(this)">
-            <span>야외인데 비가 오면 어떻게 되나요?</span> <span>+</span>
+            <span data-i18n="faqQ4">야외인데 비가 오면 어떻게 되나요?</span> <span>+</span>
           </div>
           <div class="faq-answer" data-i18n="faq4"></div>
         </div>
@@ -702,9 +710,13 @@
         t6: "애프터 파티 시작 (Open End)",
         travelDesc: "<strong>📍 주소:</strong> 서울특별시 강서구 방화대로 94 메이필드호텔<br><br><strong>🚗 주차 (Parking):</strong><br>메이필드 호텔 내에 하객분들을 위한 주차 공간이 충분히 마련되어 있습니다.<br><br><strong>🚇 지하철 & 셔틀버스:</strong><br>- <strong>탑승역:</strong> 5호선/9호선/공항철도 김포공항역<br>- <strong>셔틀 운행:</strong> 예식 1시간 전부터 20분 간격 운행<br>- <strong>승차 위치:</strong> 김포공항 국제선 1층 2번 승차장 또는 국내선 1층 3번 승차장<br><br><strong>🚌 일반 버스:</strong><br>- 김포공항역에서 651, 6632번 탑승 후 '강서면허시험장.메이필드호텔' 정류장 하차<br><br><strong>🚕 택시:</strong><br>- 김포공항역에서 택시 탑승 시 약 5~10분 소요",
         btnOpenMap: "📍 Google Maps에서 위치 보기",
+        faqQ1: "아이들을 동반해도 되나요?",
         faq1: "네, 물론입니다! 어린이 게스트를 위한 특별한 식사가 준비될 예정입니다. 정확한 인원 파악을 위해 참석 회신 시 아이의 연령을 꼭 기재해 주세요.",
+        faqQ2: "주차는 가능한가요?",
         faq2: "호텔 내에 주차 공간이 넉넉히 준비되어 있으니 편하게 차를 가져오셔도 됩니다.",
+        faqQ3: "참석 여부(RSVP)는 언제까지 알려주면 되나요?",
         faq3: "원활한 좌석 배치와 식사 준비를 위해 늦어도 8월 1일까지는 꼭 참석 여부를 회신해 주시면 감사하겠습니다.",
+        faqQ4: "야외인데 비가 오면 어떻게 되나요?",
         faq4: "야외 초례청이지만 우천 시를 대비해 전체를 덮을 수 있는 대형 천막이 설치되어 있으니 비가 와도 걱정 없이 예식을 즐기실 수 있습니다.",
         rsvpDeadline: "원활한 예식 준비를 위해 8월 1일까지 참석 여부를 알려주세요.",
         lblName: "성함 (Name)",
@@ -729,11 +741,15 @@
         t6: "After Party (Open End)",
         travelDesc: "<strong>📍 Address:</strong> 94 Banghwa-daero, Gangseo-gu, Seoul (Mayfield Hotel)<br><br><strong>🚗 Parking:</strong><br>Ample parking is available for guests inside the hotel.<br><br><strong>🚇 Subway & Shuttle:</strong><br>- <strong>Station:</strong> Gimpo Airport Station (Lines 5, 9, AREX)<br>- <strong>Shuttle:</strong> Runs every 20 mins, starting 1 hour before the ceremony.<br>- <strong>Pick-up:</strong> Int'l Terminal 1F Gate 2 OR Domestic Terminal 1F Gate 3<br><br><strong>🚕 Taxi:</strong><br>- Takes about 5~10 mins from Gimpo Airport Station.",
         btnOpenMap: "📍 Open in Google Maps",
+        faqQ1: "Are children allowed?",
         faq1: "Yes, absolutely! A special meal will be prepared for our little guests. Please include your child's age when you RSVP.",
+        faqQ2: "Is parking available?",
         faq2: "There is plenty of parking space available at the hotel.",
+        faqQ3: "Until when should I RSVP?",
         faq3: "To help us arrange the seating and catering smoothly, please RSVP no later than August 1st.",
+        faqQ4: "What if it rains?",
         faq4: "The courtyard is outdoors, but a large tent is installed to cover the area in case of rain, so the ceremony will proceed beautifully regardless of the weather.",
-        rsvpDeadline: "Please kindly respond by August 1st.",
+      },
         lblName: "Name",
         lblAttend: "Attendance",
         optYes: "Yes, I will attend",
@@ -756,9 +772,13 @@
         t6: "After-Party (Open End)",
         travelDesc: "<strong>📍 Adresse:</strong> 94 Banghwa-daero, Gangseo-gu, Seoul (Mayfield Hotel)<br><br><strong>🚗 Parken:</strong><br>Es stehen ausreichend Parkplätze im Hotel zur Verfügung.<br><br><strong>🚇 U-Bahn & Shuttle:</strong><br>- <strong>Station:</strong> Gimpo Airport Station (Linien 5, 9, AREX)<br>- <strong>Shuttle:</strong> Fährt alle 20 Min., beginnend 1 Std. vor der Zeremonie.<br>- <strong>Abholung:</strong> Int'l Terminal 1F Gate 2 ODER Domestic Terminal 1F Gate 3<br><br><strong>🚕 Taxi:</strong><br>- Ca. 5~10 Minuten vom Flughafen Gimpo entfernt.",
         btnOpenMap: "📍 In Google Maps öffnen",
+        faqQ1: "Sind Kinder willkommen?",
         faq1: "Ja, natürlich! Für unsere kleinen Gäste wird es ein spezielles Kindermenü geben. Bitte gebt das Alter eurer Kinder beim RSVP an.",
-        faq2: "Es gibt ausreichend Parkplätze direkt am Hotel.",
+        faqQ2: "Gibt es Parkplätze?",
+        faq2: "Es stehen ausreichend Parkplätze direkt am Hotel zur Verfügung.",
+        faqQ3: "Bis wann sollte ich zusagen (RSVP)?",
         faq3: "Wir bitten um eure Zu- oder Absage bis spätestens 1. August, damit wir alles gut planen können.",
+        faqQ4: "Was passiert bei Regen?",
         faq4: "Die Zeremonie findet im Freien statt, aber es gibt ein großes Zeltdach, sodass wir auch bei Regen im Trockenen feiern können.",
         rsvpDeadline: "Bitte antwortet uns bis zum 1. August.",
         lblName: "Name",
