@@ -491,9 +491,8 @@
       <section class="content-section" style="background: var(--bg-section);">
         <h2 class="section-title">Travel Info</h2>
         
-        <!-- 💡 인터랙티브 구글 지도 임베드 -->
-        <div class="google-map-box" style="border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
-          <!-- 구글 지도 iframe -->
+        <!-- 💡 1. 인터랙티브 구글 지도 임베드 (기존 유지) -->
+        <div class="google-map-box" style="border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
           <iframe 
             src="https://maps.google.com/maps?q=메이필드호텔(Mayfield%20Hotel)&t=&z=15&ie=UTF8&iwloc=&output=embed" 
             width="100%" 
@@ -502,12 +501,36 @@
             allowfullscreen="" 
             loading="lazy">
           </iframe>
-          <!-- 지도 앱으로 바로 연결되는 버튼 -->
           <a href="https://maps.app.goo.gl/rB1XFjP8S8x6Bf8j9" target="_blank" style="text-decoration: none;">
             <div class="map-btn-bar" data-i18n="btnOpenMap">📍 Google Maps 앱에서 열기</div>
           </a>
         </div>
 
+        <!-- 💡 2. 지도와 주소 사이: 국내 내비게이션 3사 연동 버튼 모음 -->
+        <div style="display: flex; gap: 8px; margin-bottom: 20px;">
+          <!-- 네이버 지도 -->
+          <a href="https://map.naver.com/p/search/메이필드호텔" target="_blank" style="flex: 1; text-decoration: none;">
+            <div style="padding: 11px 4px; text-align: center; background: #03C75A; color: #fff; font-size: 13px; font-weight: bold; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08);">
+              💚 네이버지도
+            </div>
+          </a>
+          
+          <!-- 카카오내비 -->
+          <a href="https://map.kakao.com/link/search/메이필드호텔" target="_blank" style="flex: 1; text-decoration: none;">
+            <div style="padding: 11px 4px; text-align: center; background: #FEE500; color: #3C1E1E; font-size: 13px; font-weight: bold; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08);">
+              💛 카카오내비
+            </div>
+          </a>
+          
+          <!-- T맵 -->
+          <a href="https://surl.tmap.co.kr/30db9f18" target="_blank" style="flex: 1; text-decoration: none;">
+            <div style="padding: 11px 4px; text-align: center; background: #1C3144; color: #fff; font-size: 13px; font-weight: bold; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08);">
+              💙 T맵
+            </div>
+          </a>
+        </div>
+
+        <!-- 💡 3. 주소 및 대중교통 안내 (기존 유지) -->
         <p style="font-size: 15px; line-height: 1.8;" data-i18n="travelDesc">
           <strong>📍 주소:</strong> 서울특별시 강서구 방화대로 94 메이필드호텔<br><br>
           <strong>🚗 주차 (Parking):</strong><br>메이필드 호텔 내에 하객분들을 위한 주차 공간이 충분히 마련되어 있습니다.<br><br>
