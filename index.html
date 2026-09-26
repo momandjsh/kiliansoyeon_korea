@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
   <style>
+    
     .video-container video {
       width: 100%;       /* 가로를 화면에 꽉 채움 */
       height: auto;      /* 비율에 맞게 높이가 자동으로 조절됨 */
@@ -324,7 +325,12 @@
     .gallery-swiper .swiper-pagination {
       display: none !important;
     }
-    
+    /* 갤러리 화살표 색상 하얀색으로 변경 */
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: #ffffff !important;
+      filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5)); /* 사진 위에서 잘 보이도록 그림자 추가 */
+    }
 
     /* RSVP 폼 */
     .rsvp-form label {
@@ -430,7 +436,8 @@
     <video id="introVideo" playsinline preload="auto">
       <source src="image/kling_20260926_VIDEO_한국_전통혼례를_계_4873.mp4" type="video/mp4">
     </video>
-    <div class="video-overlay-text" id="videoHint">화면을 터치해주세요</div>
+    <!-- 💡 data-i18n="videoHint" 속성 추가 -->
+      <div class="video-overlay-text" id="videoHint" data-i18n="videoHint">화면을 터치해주세요</div>
   </section>
 
   <div class="app-container">
@@ -782,7 +789,9 @@
         shareTitle: "청첩장 공유하기",
         btnNaver: "💚 네이버지도",
         btnKakao: "💛 카카오내비",
-        btnTmap: "💙 T맵"
+        btnTmap: "💙 T맵",
+        videoHint: "화면을 터치해주세요",
+        msgCopySuccess: "현재 언어 설정이 포함된 링크가 복사되었습니다!"
       },
       en: {
         invitationBody: "Dear friends and family<br><br>We are getting married!<br>We warmly invite you to join us on our special day as we celebrate our wedding.<br><br><span class=\"invitation-name\">🤵 Kilian Scheffter</span><br><span class=\"invitation-name\">👰 Soyeon Jun</span>",
@@ -815,7 +824,9 @@
         shareTitle: "Share Invitation",
         btnNaver: "💚 Naver Map",
         btnKakao: "💛 Kakao Navi",
-        btnTmap: "💙 Tmap"
+        btnTmap: "💙 Tmap",
+        videoHint: "Please touch the screen",
+        msgCopySuccess: "Link copied!"
       },
       de: {
         invitationBody: "Liebe Freunde und Familie<br><br>Wir heiraten!<br>Wir laden euch herzlich ein, diesen besonderen Tag gemeinsam mit uns zu feiern.<br><br><span class=\"invitation-name\">🤵 Kilian Scheffter</span><br><span class=\"invitation-name\">👰 Soyeon Jun</span>",
@@ -849,7 +860,9 @@
         shareTitle: "Einladung teilen",
         btnNaver: "💚 Naver Map",
         btnKakao: "💛 Kakao Navi",
-        btnTmap: "💙 Tmap"
+        btnTmap: "💙 Tmap",
+        videoHint: "Bitte klicken Sie auf den Bildschirm",
+        msgCopySuccess: "In die Zwischenablage kopiert."
       },
     };
 
