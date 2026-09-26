@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wedding Invitation</title>
+ <!-- <title>Wedding Invitation</title>-->
 
   <!-- 검색엔진 노출 방지 및 SNS 미리보기(OG) 설정 -->
   <meta name="robots" content="noindex, nofollow">
@@ -418,15 +418,17 @@
 
       <!-- 초대의 글 -->
       <section class="content-section">
-        <h2 class="section-title">Invitation</h2>
-        <div class="letter-body" data-i18n="invitationBody"></div>
+        <h2 class="section-title"></h2>
+        <div class="letter-body" data-i18n="invitationBody">
+          지구 반대편에서 만난 저희 두 사람이<br>서로의 손을 잡고 새로운 시작을 함께하려 합니다.<br>한국의 아름다운 전통혼례로 펼쳐질<br>저희의 시작을 함께 축하해 주세요.<br><br>🌿<span class="invitation-name">신랑 킬리안 쉐프터</span>🌿<br>🌿<span class="invitation-name">신부 전소연</span>🌿
+        </div>
       </section>
 
-      <!-- 💡 초대의 글 바로 아래 비디오 영역 복구 -->
+      <!-- 초대의 글 바로 아래 비디오 영역 -->
       <section class="content-section video-section">
         <div class="video-container">
           <video autoplay loop muted playsinline preload="auto">
-            <source src=""https://momandjsh.github.io/kilian-soyeon-germany/image/C1071_1 (2).mp4" type="video/mp4">
+            <source src="https://momandjsh.github.io/kilian-soyeon-germany/image/C1071_1%20(2).mp4" type="video/mp4">
             귀하의 브라우저는 비디오 태그를 지원하지 않습니다.
           </video>
         </div>
@@ -688,7 +690,7 @@
     // --- 3. 다국어 번역 로직 ---
     const translations = {
       ko: {
-        invitationBody: "지구 반대편에서 만난 저희 두 사람이<br>서로의 손을 잡고 새로운 시작을 함께하려 합니다.<br>한국의 아름다운 전통혼례로 펼쳐질<br>저희의 시작을 함께 축하해 주세요.<br><br>🌿<span class=\"invitation-name\">신랑 킬리안 쉐프터</span>🌿<br>🌿<span class=\"invitation-name\">신부 전소연</span>🌿",
+        invitationBody: "지구 반대편에서 만난 저희 두 사람이<br>서로의 손을 잡고 새로운 시작을 함께하려 합니다.<br>한국의 아름다운 전통혼례로 펼쳐질<br>저희의 시작을 함께 축하해 주세요.<br><br><span class=\"invitation-name\">🤵 킬리안 쉐프터</span><br><span class=\"invitation-name\">👰 전소연</span>",
         dateText: "2027년 9월 26일",
         venueText: "메이필드 호텔 초례청",
         lblDays: "일", lblHours: "시간", lblMins: "분", lblSecs: "초",
@@ -715,7 +717,7 @@
         shareTitle: "청첩장 공유하기"
       },
       en: {
-        invitationBody: "We met on opposite sides of the earth,<br>and now we are holding hands to start a new chapter together.<br>Please join us and celebrate our beginning<br>with a beautiful Korean Traditional Wedding.<br><br>🌿<span class=\"invitation-name\">Groom Kilian Scheffter</span>🌿<br>🌿<span class=\"invitation-name\">Bride Soyeon Jun</span>🌿",
+        invitationBody: "Dear friends and family<br><br>We are getting married!<br>We warmly invite you to join us on our special day as we celebrate our wedding.<br><br><span class=\"invitation-name\">🤵 Kilian Scheffter</span><br><span class=\"invitation-name\">👰 Soyeon Jun</span>",
         dateText: "September 26, 2027",
         venueText: "Mayfield Hotel, Choryecheong (Traditional Courtyard)",
         lblDays: "Days", lblHours: "Hours", lblMins: "Mins", lblSecs: "Secs",
@@ -742,7 +744,7 @@
         shareTitle: "Share Invitation"
       },
       de: {
-        invitationBody: "Wir haben uns am anderen Ende der Welt getroffen<br>und reichen uns nun die Hände für ein neues gemeinsames Kapitel.<br>Bitte feiert mit uns unseren Beginn<br>bei einer traditionellen koreanischen Hochzeit.<br><br>🌿<span class=\"invitation-name\">Bräutigam Kilian Scheffter</span>🌿<br>🌿<span class=\"invitation-name\">Braut Soyeon Jun</span>🌿",
+        invitationBody: "Liebe Freunde und Familie<br><br>Wir heiraten!<br>Wir laden euch herzlich ein, diesen besonderen Tag gemeinsam mit uns zu feiern.<br><br><span class=\"invitation-name\">🤵 Kilian Scheffter</span><br><span class=\"invitation-name\">👰 Soyeon Jun</span>",
         dateText: "26. September 2027",
         venueText: "Mayfield Hotel, Choryecheong",
         lblDays: "Tage", lblHours: "Std", lblMins: "Min", lblSecs: "Sek",
@@ -823,12 +825,20 @@
     // Swiper 초기화
     let gallerySwiper = null;
     function initGallerySwiper() {
-      if (gallerySwiper) return; // 중복 방지
+      if (gallerySwiper) return;
       gallerySwiper = new Swiper('.gallery-swiper', {
         loop: true,
         spaceBetween: 15,
         centeredSlides: true,
         autoplay: { delay: 3500, disableOnInteraction: false },
+        navigation: {                      // 👈 이 부분을 추가해주세요!
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        pagination: {                      // 👈 페이지네이션(점)도 확실하게 동작하도록 추가
+          el: '.swiper-pagination',
+          clickable: true,
+        },
       });
     }
 
