@@ -986,6 +986,7 @@
     }
 
     function shareKakao() {
+      // 현재 접속한 URL (쿼리 파라미터 포함)
       const currentUrl = window.location.href;
       const urlParams = new URLSearchParams(window.location.search);
       const currentLang = urlParams.get('lang') || 'ko';
@@ -1007,7 +1008,7 @@
           content: {
             title: title,
             description: desc,
-            imageUrl: 'https://momandjsh.github.io/kiliansoyeon_korea/image/000.jpg',
+            imageUrl: 'https://momandjsh.github.io/kiliansoyeon_korea/image/Choryecheong.jpg',
             link: {
               mobileWebUrl: currentUrl,
               webUrl: currentUrl,
@@ -1015,7 +1016,7 @@
           },
           buttons: [
             {
-              title: '청첩장 보기 (View Invitation)',
+              title: '청첩장 보기',
               link: {
                 mobileWebUrl: currentUrl,
                 webUrl: currentUrl,
@@ -1024,6 +1025,7 @@
           ],
         });
       } else {
+        // SDK 미로드 시 카카오 공유 웹 피커로 이동
         window.open(`https://sharer.kakao.com/talk/friends/picker/link?url=${encodeURIComponent(currentUrl)}`, '_blank');
       }
     }
