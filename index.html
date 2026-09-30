@@ -986,10 +986,10 @@
     }
 
     function shareKakao() {
-      // 1. 현재 URL을 안전하게 가져오기 (언어 파라미터 포함)
+      // 1. 현재 접속한 전체 URL 가져오기
       let currentUrl = window.location.href;
       
-      // 만약 URL이 local 파일이나 이상한 경로로 잡힐 경우를 대비한 안전 장치
+      // local 파일 경로이거나 예외 주소일 경우 정식 GitHub URL 지정
       if (!currentUrl.startsWith('https://momandjsh.github.io')) {
         const urlParams = new URLSearchParams(window.location.search);
         const currentLang = urlParams.get('lang') || 'ko';
@@ -999,22 +999,25 @@
       const urlParams = new URLSearchParams(window.location.search);
       const currentLang = urlParams.get('lang') || 'ko';
       
-      // 언어별 타이틀 및 문구 설정
+      // 2. 언어별 타이틀 및 설명 문구 (초대합니다 아래에 URL 직접 삽입)
       let title = "킬리안 & 소연의 결혼식에 초대합니다";
-      let desc = "2027년 9월 26일 메이필드 호텔 초례청";
-      let btnText = "청첩장 열기";
+      let desc = "2027년 9월 26일 메이필드 호텔 초례청\n\n아래 링크를 눌러 확인해 주세요:\n" + currentUrl;
+      let btnText = "청첩장 보기";
       
       if (currentLang === 'en') {
         title = "Kilian & Soyeon's Wedding Invitation";
-        desc = "September 26, 2027 | Mayfield Hotel, Seoul";
+        desc = "September 26, 2027 | Mayfield Hotel, Seoul\n\nPlease visit the link below:\n" + currentUrl;
         btnText = "View Invitation";
       } else if (currentLang === 'de') {
         title = "Einladung zur Hochzeit von Kilian & Soyeon";
-        desc = "26. September 2027 | Mayfield Hotel, Seoul";
+        desc = "26. September 2027 | Mayfield Hotel, Seoul\n\nBitte besuchen Sie den folgenden Link:\n" + currentUrl;
         btnText = "Einladung öffnen";
       }
 
-      // 2. 카카오 SDK 실행
+      // 💡 독일어 전용 페이지 파일일 경우 카카오 이미지 파일명만 해당 이미지로 수정하시면 됩니다!
+      const shareImageUrl = 'https://momandjsh.github.io/kiliansoyeon_korea/image/Choryecheong.jpg';
+
+      // 3. 카카오 전송 실행
       if (typeof Kakao !== 'undefined') {
         if (!Kakao.isInitialized()) {
           Kakao.init('fcba721351b7e4a0a2b49a7ae6e8ee82');
@@ -1024,8 +1027,8 @@
           objectType: 'feed',
           content: {
             title: title,
-            description: desc,
-            imageUrl: 'https://momandjsh.github.io/kiliansoyeon_korea/image/Choryecheong.jpg',
+            description: desc, // 👈 여기에 URL이 텍스트로 들어갑니다.
+            imageUrl: shareImageUrl,
             link: {
               mobileWebUrl: currentUrl,
               webUrl: currentUrl
@@ -1042,10 +1045,10 @@
           ]
         });
       } else {
-        // SDK 로드 실패 시 예비 웹 공유창 오픈
         window.open(`https://sharer.kakao.com/talk/friends/picker/link?url=${encodeURIComponent(currentUrl)}`, '_blank');
       }
     }
+    
     // 페이지 로드 시 즉시 실행
     document.addEventListener('DOMContentLoaded', () => {
       const initialLang = getInitialLanguage();
