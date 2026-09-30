@@ -191,21 +191,38 @@
       display: none; /* 점선 테두리 완벽 제거 */
     }
 
+    /* 💡 기존의 max-height: 600px 속성 유지 + 프레임 배치를 위한 relative 지정 */
     .video-container {
       width: 100%;
-      max-height: 600px;
+      max-height: 500px;
+      position: relative;
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
       background: #000;
-      line-height: 0;
+      line-height: 0; /* 하단 미세 공백 제거 */
     }
+
     .video-container video {
       width: 100%;
       height: 100%;
+      max-height: 600px; /* 기존 비디오 높이 제한 유지 */
       display: block;
       object-fit: cover;
       object-position: center bottom;
+    }
+
+    /* 💡 [추가] 비디오 위에 씌워지는 전통 문살 프레임 레이어 */
+    .video-frame-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('image/frame.png') no-repeat center center;
+      background-size: 100% 100%; /* 프레임이 비디오 상자 크기에 딱 맞게 맞춰짐 */
+      pointer-events: none; /* 영상 클릭/재생을 방해하지 않음 */
+      z-index: 2;
     }
     
     .section-title {
@@ -481,13 +498,15 @@
         <div class="letter-body" id="invitationText" data-i18n="invitationBody"></div>
       </section>
 
-      <!-- 초대의 글 바로 아래 비디오 영역 -->
+     <!-- 초대의 글 바로 아래 비디오 영역 -->
       <section class="content-section video-section">
         <div class="video-container">
           <video autoplay loop muted playsinline preload="auto">
             <source src="https://momandjsh.github.io/kiliansoyeon_korea/image/C1072.mp4" type="video/mp4">
             귀하의 브라우저는 비디오 태그를 지원하지 않습니다.
           </video>
+          <!-- 💡 [추가] 전통 문살 프레임 오버레이 레이어 -->
+          <div class="video-frame-overlay"></div>
         </div>
       </section>
 
