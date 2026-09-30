@@ -28,11 +28,29 @@
     :root {
       --primary-color: #5c3a21;
       --accent-color: #c47b4b;
-      /* 💡 기존 #f4ece1 에서 은은한 연홍빛/핑크빛 한지 톤(#f8ede8 또는 #f9ebe5)으로 변경 */
-      --bg-cream: #f9ebe5; 
-      --bg-section: rgba(245, 230, 222, 0.85);
+      /* 💡 붉은기를 완전히 줄인 정갈하고 차분한 아이보리 한지 톤 */
+      --bg-cream: #f6f1e9; 
+      --bg-section: rgba(238, 231, 220, 0.85);
       --text-dark: #3a2e26;
-      --border-color: #e5d2c5;
+      --border-color: #dad2c5;
+    }
+
+    /* 💡 [붉은기를 뺀 차분한 닥종이 한지 질감] */
+    .app-container {
+      width: 100%;
+      max-width: 430px;
+      background-color: #f6f1e9;
+      background-image: 
+        /* 1. 은은한 아이보리/내추럴 크림 빛 오버레이 */
+        radial-gradient(circle at 50% 30%, rgba(240, 233, 222, 0.5), transparent 70%),
+        /* 2. 한지 닥종이 섬유 질감 (투명도를 0.04로 낮춰 붉은 기 없이 은은한 닥종이 결만 표현) */
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      background-size: cover, 180px 180px;
+      background-attachment: fixed; /* 스크롤해도 배경 고정 */
+      position: relative;
+      box-shadow: 0 0 20px rgba(0,0,0,0.15);
+      min-height: 100vh;
+      margin: 0 auto;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
