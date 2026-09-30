@@ -52,7 +52,10 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Noto Sans KR', 'Nanum Pen Script', sans-serif;
-      background-color: #dfd4c5;
+      /* 💡 기존 #dfd4c5 단색 대신 capture.PNG 이미지 적용 및 고정 */
+      background: url('image/capture.PNG') no-repeat center center;
+      background-size: cover;
+      background-attachment: fixed; /* 스크롤 내려도 배경이 움직이지 않고 고정됨 */
       color: var(--text-dark);
       display: flex;
       justify-content: center;
