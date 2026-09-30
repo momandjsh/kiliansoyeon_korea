@@ -25,27 +25,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
   <style>
-    .video-container {
-      width: 100%;
-      max-height: 600px;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      background: #000;
-      line-height: 0; /* 하단 미세한 공백 제거 */
-    }
-    .video-container video {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      object-position: center bottom;
-    }
     :root {
       --primary-color: #5c3a21;
       --accent-color: #c47b4b;
       --bg-cream: #f4ece1;
-      --bg-section: #eadecd;
+      --bg-section: rgba(234, 222, 205, 0.85);
       --text-dark: #3a2e26;
       --border-color: #d1c4b4;
     }
@@ -64,10 +48,13 @@
       overflow-x: hidden;
     }
 
+    /* 💡 앱 컨테이너: 고정(fixed) 한지 배경 질감 설정으로 스크롤 시 끊김 방지 */
     .app-container {
       width: 100%;
       max-width: 430px;
-      background: var(--bg-cream);
+      background: var(--bg-cream) url('image/hanji_bg.jpg') no-repeat center top;
+      background-size: cover;
+      background-attachment: fixed;
       position: relative;
       box-shadow: 0 0 20px rgba(0,0,0,0.15);
       min-height: 100vh;
@@ -84,7 +71,7 @@
       }
     }
     
-    /* 언어 선택 버튼 (z-index 6000으로 비디오 레이어보다 상위에 배치) */
+    /* 언어 선택 버튼 */
     .lang-switcher {
       position: fixed;
       top: 15px;
@@ -157,7 +144,7 @@
       display: none;
       opacity: 0;
       transition: opacity 1.5s ease;
-      background: var(--bg-cream);
+      background: transparent; /* 한지 질감이 투명하게 비치도록 투명 배경 설정 */
       padding-top: 20px;
     }
 
@@ -168,7 +155,44 @@
 
     .content-section {
       padding: 40px 25px;
-      border-bottom: 1px solid #eae5dc;
+      border-bottom: 1px solid rgba(218, 206, 189, 0.6);
+    }
+
+    /* 💡 [초대의 글] 전통 한지 편지지 카드 연출 */
+    .letter-section {
+      margin: 15px 15px 30px;
+      padding: 35px 20px;
+      background: rgba(255, 253, 248, 0.85);
+      border: 1px solid #dcd1c1;
+      border-radius: 12px;
+      box-shadow: inset 0 0 15px rgba(184, 160, 130, 0.12), 0 4px 12px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .letter-section::after {
+      content: '';
+      position: absolute;
+      top: 8px; left: 8px; right: 8px; bottom: 8px;
+      border: 1px dashed rgba(196, 123, 75, 0.3);
+      border-radius: 8px;
+      pointer-events: none;
+    }
+
+    .video-container {
+      width: 100%;
+      max-height: 600px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      background: #000;
+      line-height: 0;
+    }
+    .video-container video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center bottom;
     }
     
     .section-title {
@@ -205,7 +229,7 @@
       gap: 12px;
     }
     .time-box {
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.9);
       border: 1px solid #e5dfd3;
       border-radius: 8px;
       padding: 10px 8px;
@@ -283,7 +307,7 @@
       overflow: hidden;
     }
     .faq-question {
-      background: #fff;
+      background: rgba(255, 255, 255, 0.9);
       padding: 14px;
       font-weight: bold;
       cursor: pointer;
@@ -292,7 +316,7 @@
     }
     .faq-answer {
       padding: 14px;
-      background: #fdfdfd;
+      background: rgba(253, 253, 253, 0.95);
       display: none;
       font-size: 14px;
       color: #666;
@@ -310,7 +334,7 @@
       height: 500px;
       border-radius: 8px;
       overflow: hidden;
-      background-color: var(--bg-cream);
+      background-color: transparent;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -344,6 +368,7 @@
       border: 1px solid #ccc;
       border-radius: 4px;
       font-family: inherit;
+      background: rgba(255, 255, 255, 0.9);
     }
     .btn-submit {
       width: 100%;
@@ -379,7 +404,7 @@
     .share-section {
       padding: 30px 20px 20px;
       text-align: center;
-      background-color: #fafafa;
+      background-color: rgba(250, 250, 250, 0.85);
     }
     .share-buttons {
       display: flex;
@@ -402,10 +427,10 @@
     .share-btn.whatsapp { background-color: #25D366; border-color: #25D366; color: #ffffff; }
     
     .footer-copyright {
-        text-align: center;
-        padding: 20px;
-        font-size: 12px;
-        color: #888;
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      color: #888;
     }
   </style>
 </head>
@@ -438,9 +463,8 @@
   <div class="app-container">
     <main id="mainContent">
 
-      <!-- 초대의 글 -->
-      <section class="content-section">
-        <!--<h2 class="section-title">Invitation</h2>-->
+      <!-- 초대의 글 (전통 서찰 편지지 스타일 적용) -->
+      <section class="content-section letter-section">
         <div class="letter-body" id="invitationText" data-i18n="invitationBody"></div>
       </section>
 
@@ -455,7 +479,7 @@
       </section>
 
       <!-- 일시 및 장소 -->
-      <section class="content-section" style="background: #f4efe6;">
+      <section class="content-section" style="background: rgba(244, 239, 230, 0.85);">
         <h2 class="section-title">Details</h2>
         <p style="text-align: center; line-height: 1.9; font-size: 16px;">
           <strong>📅 Date:</strong> <span data-i18n="dateText">2027년 9월 26일</span><br>
@@ -505,7 +529,8 @@
               💛 카카오내비
             </div>
           </a>
-          <a href="tmap://route?rGoName=메이필드호텔&rGoX=126.8166&rGoY=37.5429" target="_blank" style="flex: 1; text-decoration: none;">
+          <!-- 💡 T맵 연동 주소 개선 -->
+          <a href="https://apis.openapi.sk.com/tmap/app/routes?appKey=l7xx8d77f33d7b434a9cb4e7a8e7e1d51a6d&name=메이필드호텔&lon=126.8166&lat=37.5429" target="_blank" rel="noopener noreferrer" style="flex: 1; text-decoration: none;">
             <div data-i18n="btnTmap" style="padding: 11px 4px; text-align: center; background: #1C3144; color: #fff; font-size: 13px; font-weight: bold; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08);">
               💙 T맵
             </div>
@@ -519,8 +544,7 @@
           - <strong>탑승역:</strong> 5호선/9호선/공항철도 김포공항역<br>
           - <strong>셔틀 운행:</strong> 예식 1시간 전부터 20분 간격 운행<br>
           - <strong>승차 위치:</strong> 김포공항 국내선청사 1층 Gate6 7번 승강장<br><br>
-          <strong>🚌 일반 버스:</strong><br>
-          - 주요 역별 시내버스 안내:</strong><br>('강서면허시험장/메이필드호텔' 정류장 하차)<br>• <strong>마곡역:</strong> 388, 6630, 6642<br>• <strong>발산역:</strong> 6630, 6632<br>• <strong>마곡나루역:</strong> 6642<br>• <strong>김포공항(국제선):</strong> 50, 3, 50-1, 12, 651, 6632<br><br>
+          <strong>🚌 주요 역별 시내버스 안내:</strong><br>('강서면허시험장/메이필드호텔' 정류장 하차)<br>• <strong>마곡역:</strong> 388, 6630, 6642<br>• <strong>발산역:</strong> 6630, 6632<br>• <strong>마곡나루역:</strong> 6642<br>• <strong>김포공항(국제선):</strong> 50, 3, 50-1, 12, 651, 6632<br><br>
           <strong>🚕 택시:</strong><br>
           - 김포공항역에서 택시 탑승 시 약 5~10분 소요
         </p>
@@ -620,7 +644,7 @@
       </section>
       
       <!-- 카카오톡 공유 SDK -->
-<script src="https://tapi.kakao.com/js/v1/kakao.min.js"></script>
+      <script src="https://tapi.kakao.com/js/v1/kakao.min.js"></script>
       
       <!-- Font Awesome CDN -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -762,7 +786,7 @@
         faqQ4: "What if it rains?",
         faq4: "The courtyard is outdoors, but a large tent is installed to cover the area in case of rain, so the ceremony will proceed beautifully regardless of the weather.",        
         faqQ5: "What should I wear?",
-        faq5: "Please come in whatever you feel comfortable and nice in! You are very welcome to wear a Hanbok inf you'd like, or simply your favorite outfit. :)",
+        faq5: "Please come in whatever you feel comfortable and nice in! You are very welcome to wear a Hanbok if you'd like, or simply your favorite outfit. :)",
         rsvpDeadline: "Please kindly respond by August 1st.",
         lblName: "Name",
         lblAttend: "Attendance",
@@ -792,7 +816,7 @@
         travelDesc: "<strong>📍 Adresse:</strong> 94 Banghwa-daero, Gangseo-gu, Seoul (Mayfield Hotel)<br><br><strong>🚗 Parken:</strong><br>Es stehen ausreichend Parkplätze im Hotel zur Verfügung.<br><br><strong>🚇 U-Bahn & Shuttle:</strong><br>- <strong>Station:</strong> Gimpo Airport Station (Linien 5, 9, AREX)<br>- <strong>Shuttle:</strong> Fährt alle 20 Min., beginnend 1 Std. vor der Zeremonie.<br>- <strong>Abholung:</strong> Gimpo Flughafen Inlandsterminal EG (1F), Gate 6, Haltestelle 7<br><br><strong>🚌 Linienbus nach Stationen:</strong><br>(Aussteigen an 'Gangseo Driver's License Examination Site / Mayfield Hotel')<br>• <strong>Magok Station:</strong> 388, 6630, 6642<br>• <strong>Balsan Station:</strong> 6630, 6632<br>• <strong>Magongnaru Station:</strong> 6642<br>• <strong>Gimpo Airport (Int'l):</strong> 50, 3, 50-1, 12, 651, 6632<br><br><strong>🚕 Taxi:</strong><br>- Ca. 5–10 Minuten mit dem Taxi vom Flughafen Gimpo entfernt.",
         btnOpenMap: "📍 In Google Maps öffnen",
         faqQ1: "Sind Kinder willkommen?",
-        faq1: "Ja, natürlich! Selbsverständlich sind auch Kinder herzlich eingeladen.",
+        faq1: "Ja, natürlich! Selbstverständlich sind auch Kinder herzlich eingeladen.",
         faqQ2: "Gibt es Parkplätze?",
         faq2: "Es stehen ausreichend Parkplätze direkt am Hotel zur Verfügung.",
         faqQ3: "Bis wann sollte ich zusagen (RSVP)?",
