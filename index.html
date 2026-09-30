@@ -986,27 +986,40 @@
     }
 
     function shareKakao() {
-      // 💡 현재 브라우저의 전체 URL (http://.../?lang=de 포함)을 그대로 가져옴
-      const currentUrl = window.location.href;
+      // 1. 현재 URL을 안전하게 가져오기 (언어 파라미터 포함)
+      let currentUrl = window.location.href;
+      
+      // 만약 URL이 local 파일이나 이상한 경로로 잡힐 경우를 대비한 안전 장치
+      if (!currentUrl.startsWith('https://momandjsh.github.io')) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentLang = urlParams.get('lang') || 'ko';
+        currentUrl = `https://momandjsh.github.io/kiliansoyeon_korea/?lang=${currentLang}`;
+      }
+
       const urlParams = new URLSearchParams(window.location.search);
       const currentLang = urlParams.get('lang') || 'ko';
       
-      // 언어별 카카오톡 메시지 제목 및 설명 문구
+      // 언어별 타이틀 및 문구 설정
       let title = "킬리안 & 소연의 결혼식에 초대합니다";
       let desc = "2027년 9월 26일 메이필드 호텔 초례청";
-      let buttonTitle = "청첩장 보기";
+      let btnText = "청첩장 열기";
       
       if (currentLang === 'en') {
         title = "Kilian & Soyeon's Wedding Invitation";
         desc = "September 26, 2027 | Mayfield Hotel, Seoul";
-        buttonTitle = "View Invitation";
+        btnText = "View Invitation";
       } else if (currentLang === 'de') {
         title = "Einladung zur Hochzeit von Kilian & Soyeon";
         desc = "26. September 2027 | Mayfield Hotel, Seoul";
-        buttonTitle = "Einladung öffnen";
+        btnText = "Einladung öffnen";
       }
 
-      if (typeof Kakao !== 'undefined' && Kakao.isInitialized()) {
+      // 2. 카카오 SDK 실행
+      if (typeof Kakao !== 'undefined') {
+        if (!Kakao.isInitialized()) {
+          Kakao.init('fcba721351b7e4a0a2b49a7ae6e8ee82');
+        }
+
         Kakao.Share.sendDefault({
           objectType: 'feed',
           content: {
@@ -1014,26 +1027,25 @@
             description: desc,
             imageUrl: 'https://momandjsh.github.io/kiliansoyeon_korea/image/Choryecheong.jpg',
             link: {
-              mobileWebUrl: currentUrl, // 👈 lang 파라미터가 포함된 전체 URL 전송
-              webUrl: currentUrl,
-            },
+              mobileWebUrl: currentUrl,
+              webUrl: currentUrl
+            }
           },
           buttons: [
             {
-              title: buttonTitle,
+              title: btnText,
               link: {
-                mobileWebUrl: currentUrl, // 👈 버튼 클릭 시에도 동일한 언어 URL로 이동
-                webUrl: currentUrl,
-              },
-            },
-          ],
+                mobileWebUrl: currentUrl,
+                webUrl: currentUrl
+              }
+            }
+          ]
         });
       } else {
-        // SDK 미로드 시 카카오 공유 웹 피커로 이동
+        // SDK 로드 실패 시 예비 웹 공유창 오픈
         window.open(`https://sharer.kakao.com/talk/friends/picker/link?url=${encodeURIComponent(currentUrl)}`, '_blank');
       }
     }
-
     // 페이지 로드 시 즉시 실행
     document.addEventListener('DOMContentLoaded', () => {
       const initialLang = getInitialLanguage();
