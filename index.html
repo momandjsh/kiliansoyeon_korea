@@ -986,20 +986,24 @@
     }
 
     function shareKakao() {
-      // 현재 접속한 URL (쿼리 파라미터 포함)
+      // 💡 현재 브라우저의 전체 URL (http://.../?lang=de 포함)을 그대로 가져옴
       const currentUrl = window.location.href;
       const urlParams = new URLSearchParams(window.location.search);
       const currentLang = urlParams.get('lang') || 'ko';
       
+      // 언어별 카카오톡 메시지 제목 및 설명 문구
       let title = "킬리안 & 소연의 결혼식에 초대합니다";
       let desc = "2027년 9월 26일 메이필드 호텔 초례청";
+      let buttonTitle = "청첩장 보기";
       
       if (currentLang === 'en') {
         title = "Kilian & Soyeon's Wedding Invitation";
         desc = "September 26, 2027 | Mayfield Hotel, Seoul";
+        buttonTitle = "View Invitation";
       } else if (currentLang === 'de') {
         title = "Einladung zur Hochzeit von Kilian & Soyeon";
         desc = "26. September 2027 | Mayfield Hotel, Seoul";
+        buttonTitle = "Einladung öffnen";
       }
 
       if (typeof Kakao !== 'undefined' && Kakao.isInitialized()) {
@@ -1010,15 +1014,15 @@
             description: desc,
             imageUrl: 'https://momandjsh.github.io/kiliansoyeon_korea/image/Choryecheong.jpg',
             link: {
-              mobileWebUrl: currentUrl,
+              mobileWebUrl: currentUrl, // 👈 lang 파라미터가 포함된 전체 URL 전송
               webUrl: currentUrl,
             },
           },
           buttons: [
             {
-              title: '청첩장 보기',
+              title: buttonTitle,
               link: {
-                mobileWebUrl: currentUrl,
+                mobileWebUrl: currentUrl, // 👈 버튼 클릭 시에도 동일한 언어 URL로 이동
                 webUrl: currentUrl,
               },
             },
