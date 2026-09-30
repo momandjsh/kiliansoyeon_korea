@@ -14,6 +14,12 @@
   <meta id="twitter-description" name="twitter:description" content="2027년 9월 26일 메이필드 호텔 초례청">
   <meta id="twitter-image" name="twitter:image" content="https://momandjsh.github.io/kiliansoyeon_korea/image/Choryecheong.jpg">
 
+  <!-- 카카오톡 공유용 오픈그래프 설정 -->
+  <meta property="og:title" content="킬리안 & 소연의 결혼식에 초대합니다" />
+  <meta property="og:description" content="2027년 9월 26일 메이필드 호텔 초례청" />
+  <meta property="og:image" content="https://momandjsh.github.io/kiliansoyeon_korea/image/Choryecheong.jpg" />
+  <meta property="og:url" content="https://momandjsh.github.io/kiliansoyeon_korea/" />
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -986,66 +992,31 @@
     }
 
     function shareKakao() {
-      // 1. 현재 접속한 전체 URL 가져오기
+      // 현재 브라우저의 전체 주소 (파라미터 포함)
       let currentUrl = window.location.href;
-      
-      // local 파일 경로이거나 예외 주소일 경우 정식 GitHub URL 지정
+
+      // 로컬 파일 경로이거나 예외 주소일 경우 정식 GitHub URL 지정
       if (!currentUrl.startsWith('https://momandjsh.github.io')) {
         const urlParams = new URLSearchParams(window.location.search);
         const currentLang = urlParams.get('lang') || 'ko';
-        currentUrl = `https://momandjsh.github.io/kiliansoyeon_korea/?lang=ko`;
-      }
-      currentUrl = `https://momandjsh.github.io/kiliansoyeon_korea/?lang=ko`;
-
-      const urlParams = new URLSearchParams(window.location.search);
-      const currentLang = urlParams.get('lang') || 'ko';
-      
-      // 2. 언어별 타이틀 및 설명 문구 (초대합니다 아래에 URL 직접 삽입)
-      let title = "킬리안 & 소연의 결혼식에 초대합니다";
-      let desc = "2027년 9월 26일 메이필드 호텔 초례청\n\n아래 링크를 눌러 확인해 주세요:\n" + currentUrl;
-      let btnText = "청첩장 보기";
-      
-      if (currentLang === 'en') {
-        title = "Kilian & Soyeon's Wedding Invitation";
-        desc = "September 26, 2027 | Mayfield Hotel, Seoul\n\nPlease visit the link below:\n" + currentUrl;
-        btnText = "View Invitation";
-      } else if (currentLang === 'de') {
-        title = "Einladung zur Hochzeit von Kilian & Soyeon";
-        desc = "26. September 2027 | Mayfield Hotel, Seoul\n\nBitte besuchen Sie den folgenden Link:\n" + currentUrl;
-        btnText = "Einladung öffnen";
+        currentUrl = `https://momandjsh.github.io/kiliansoyeon_korea/?lang=${currentLang}`;
       }
 
-      // 💡 독일어 전용 페이지 파일일 경우 카카오 이미지 파일명만 해당 이미지로 수정하시면 됩니다!
-      const shareImageUrl = 'https://momandjsh.github.io/kiliansoyeon_korea/image/Choryecheong.jpg';
+      try {
+        if (typeof Kakao !== 'undefined') {
+          if (!Kakao.isInitialized()) {
+            Kakao.init('fcba721351b7e4a0a2b49a7ae6e8ee82');
+          }
 
-      // 3. 카카오 전송 실행
-      if (typeof Kakao !== 'undefined') {
-        if (!Kakao.isInitialized()) {
-          Kakao.init('fcba721351b7e4a0a2b49a7ae6e8ee82');
+          // 💡 sendScrap: URL을 직접 스크랩하여 카카오톡 정식 연결 링크 카드로 전송
+          Kakao.Share.sendScrap({
+            requestUrl: currentUrl,
+          });
+        } else {
+          throw new Error("Kakao SDK not loaded");
         }
-
-        Kakao.Share.sendDefault({
-          objectType: 'feed',
-          content: {
-            title: title,
-            description: desc, // 👈 여기에 URL이 텍스트로 들어갑니다.
-            imageUrl: shareImageUrl,
-            link: {
-              mobileWebUrl: currentUrl,
-              webUrl: currentUrl
-            }
-          },
-          buttons: [
-            {
-              title: btnText,
-              link: {
-                mobileWebUrl: currentUrl,
-                webUrl: currentUrl
-              }
-            }
-          ]
-        });
-      } else {
+      } catch (e) {
+        // SDK 이상 시 카카오 공식 웹 공유창(Sharer)으로 이동 (링크 100% 연결)
         window.open(`https://sharer.kakao.com/talk/friends/picker/link?url=${encodeURIComponent(currentUrl)}`, '_blank');
       }
     }
