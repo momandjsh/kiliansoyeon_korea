@@ -992,31 +992,60 @@
     }
 
     function shareKakao() {
-      // 현재 브라우저의 전체 주소 (파라미터 포함)
+      // 현재 접속 URL (파라미터 포함)
       let currentUrl = window.location.href;
 
-      // 로컬 파일 경로이거나 예외 주소일 경우 정식 GitHub URL 지정
+      // local 파일 경로 대응 안전장치
       if (!currentUrl.startsWith('https://momandjsh.github.io')) {
         const urlParams = new URLSearchParams(window.location.search);
         const currentLang = urlParams.get('lang') || 'ko';
         currentUrl = `https://momandjsh.github.io/kiliansoyeon_korea/?lang=${currentLang}`;
       }
 
-      try {
-        if (typeof Kakao !== 'undefined') {
-          if (!Kakao.isInitialized()) {
-            Kakao.init('fcba721351b7e4a0a2b49a7ae6e8ee82');
-          }
+      const urlParams = new URLSearchParams(window.location.search);
+      const currentLang = urlParams.get('lang') || 'ko';
+      
+      let title = "킬리안 & 소연의 결혼식에 초대합니다";
+      let desc = "2027년 9월 26일 메이필드 호텔 초례청";
+      let btnText = "청첩장 보기";
+      
+      if (currentLang === 'en') {
+        title = "Kilian & Soyeon's Wedding Invitation";
+        desc = "September 26, 2027 | Mayfield Hotel, Seoul";
+        btnText = "View Invitation";
+      } else if (currentLang === 'de') {
+        title = "Einladung zur Hochzeit von Kilian & Soyeon";
+        desc = "26. September 2027 | Mayfield Hotel, Seoul";
+        btnText = "Einladung öffnen";
+      }
 
-          // 💡 sendScrap: URL을 직접 스크랩하여 카카오톡 정식 연결 링크 카드로 전송
-          Kakao.Share.sendScrap({
-            requestUrl: currentUrl,
-          });
-        } else {
-          throw new Error("Kakao SDK not loaded");
+      if (typeof Kakao !== 'undefined') {
+        if (!Kakao.isInitialized()) {
+          Kakao.init('fcba721351b7e4a0a2b49a7ae6e8ee82');
         }
-      } catch (e) {
-        // SDK 이상 시 카카오 공식 웹 공유창(Sharer)으로 이동 (링크 100% 연결)
+
+        Kakao.Share.sendDefault({
+          objectType: 'feed',
+          content: {
+            title: title,
+            description: desc,
+            imageUrl: 'https://momandjsh.github.io/kiliansoyeon_korea/image/Choryecheong.jpg',
+            link: {
+              mobileWebUrl: currentUrl,
+              webUrl: currentUrl
+            }
+          },
+          buttons: [
+            {
+              title: btnText,
+              link: {
+                mobileWebUrl: currentUrl,
+                webUrl: currentUrl
+              }
+            }
+          ]
+        });
+      } else {
         window.open(`https://sharer.kakao.com/talk/friends/picker/link?url=${encodeURIComponent(currentUrl)}`, '_blank');
       }
     }
