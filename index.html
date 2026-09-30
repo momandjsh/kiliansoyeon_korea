@@ -978,9 +978,11 @@
       });
     }
 
-    // 카카오 SDK 초기화 (발급받으신 JavaScript 키)
-    if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
-      Kakao.init('fcba721351b7e4a0a2b49a7ae6e8ee82'); 
+    // 카카오 SDK 안전 초기화
+    if (typeof Kakao !== 'undefined') {
+      if (!Kakao.isInitialized()) {
+        Kakao.init('fcba721351b7e4a0a2b49a7ae6e8ee82');
+      }
     }
 
     function shareKakao() {
