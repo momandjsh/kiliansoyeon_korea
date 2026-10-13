@@ -463,6 +463,61 @@
       font-size: 12px;
       color: #888;
     }
+    
+    /* 💡 [추가] 갤러리 풀스크린 라이트박스 모달 스타일 */
+    .lightbox-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.95);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .lightbox-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.15);
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 100000;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+    .lightbox-close:hover { background: rgba(255, 255, 255, 0.3); }
+    .lightbox-swiper { width: 100%; height: 100%; }
+    .lightbox-swiper .swiper-slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 20px;
+    }
+    .lightbox-swiper .swiper-zoom-container img {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 4px;
+      user-select: none;
+    }
   </style>
 </head>
 <body>
@@ -651,6 +706,19 @@
         </div>
       </section>
 
+      <!-- 💡 [추가] Fullscreen Lightbox Modal -->
+  <div class="lightbox-modal" id="lightboxModal">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close Lightbox">&times;</button>
+    <div class="swiper lightbox-swiper">
+      <div class="swiper-wrapper" id="lightboxWrapper"></div>
+      <div class="swiper-pagination lightbox-pagination"></div>
+      <div class="swiper-button-next lightbox-button-next"></div>
+      <div class="swiper-button-prev lightbox-button-prev"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      
       <!-- RSVP 폼 -->
       <section class="content-section" id="rsvp">
         <h2 class="section-title">RSVP</h2>
@@ -754,6 +822,65 @@
         bgm.play().catch(err => console.log("재생 오류:", err));
         bgmIcon.innerText = '🎵';
         isPlaying = true;
+      }
+    }
+    let gallerySwiper = null;
+    let lightboxSwiper = null; // 👈 1. 라이트박스 변수 추가
+
+    // 💡 [추가] 라이트박스 생성 및 모달 제어 함수
+    function initLightbox() {
+      const mainSlides = document.querySelectorAll('.gallery-swiper .swiper-slide img');
+      const lightboxWrapper = document.getElementById('lightboxWrapper');
+      if (!lightboxWrapper || mainSlides.length === 0) return;
+
+      lightboxWrapper.innerHTML = '';
+      mainSlides.forEach((img, idx) => {
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+        
+        const zoomContainer = document.createElement('div');
+        zoomContainer.className = 'swiper-zoom-container';
+        
+        const newImg = document.createElement('img');
+        newImg.src = img.src;
+        newImg.alt = img.alt || `Wedding Photo ${idx}`;
+        
+        zoomContainer.appendChild(newImg);
+        slide.appendChild(zoomContainer);
+        lightboxWrapper.appendChild(slide);
+      });
+
+      document.querySelectorAll('.gallery-swiper .swiper-slide').forEach((slide, idx) => {
+        slide.style.cursor = 'pointer';
+        slide.addEventListener('click', () => {
+          openLightbox(idx);
+        });
+      });
+    }
+
+    function openLightbox(index) {
+      const modal = document.getElementById('lightboxModal');
+      if (!modal) return;
+
+      modal.classList.add('active');
+
+      if (!lightboxSwiper) {
+        lightboxSwiper = new Swiper('.lightbox-swiper', {
+          loop: true,
+          spaceBetween: 30,
+          zoom: { maxRatio: 3, minRatio: 1 },
+          pagination: { el: '.lightbox-pagination', clickable: true },
+          navigation: { nextEl: '.lightbox-button-next', prevEl: '.lightbox-button-prev' },
+        });
+      }
+
+      lightboxSwiper.slideToLoop(index, 0);
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById('lightboxModal');
+      if (modal) {
+        modal.classList.remove('active');
       }
     }
 
@@ -1048,12 +1175,15 @@
         window.open(`https://sharer.kakao.com/talk/friends/picker/link?url=${encodeURIComponent(currentUrl)}`, '_blank');
       }
     }
+
+    
     
     // 페이지 로드 시 즉시 실행
     document.addEventListener('DOMContentLoaded', () => {
       const initialLang = getInitialLanguage();
       setLanguage(initialLang);
       updateCountdown();
+      initLightbox(); // 👈 💡 [추가] 사진 클릭 팝업 기능 초기화 실행
     });
   </script>
 </body>
