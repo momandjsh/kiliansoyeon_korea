@@ -78,12 +78,19 @@
       }
     }
     
-    /* 언어 선택 버튼 */
-    .lang-switcher {
+    /* 상단 컨트롤 컨테이너 (음악 버튼 + 언어 선택) */
+    .top-controls {
       position: fixed;
       top: 15px;
       right: 15px;
       z-index: 6000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* 언어 선택 버튼 */
+    .lang-switcher {
       background: rgba(255,255,255,0.92);
       padding: 6px 12px;
       border-radius: 20px;
@@ -100,6 +107,24 @@
       color: #888;
     }
     .lang-btn.active { color: var(--primary-color); text-decoration: underline; }
+
+    /* BGM 버튼 (언어 버튼과 높이 및 스타일 통일) */
+    .bgm-toggle-btn {
+      border: none;
+      background: rgba(255, 255, 255, 0.92);
+      padding: 6px 12px;
+      border-radius: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+    .bgm-toggle-btn:active { transform: scale(0.92); }
 
     /* 1. INTRO VIDEO HERO */
     .intro-video-hero {
@@ -398,24 +423,6 @@
       cursor: pointer;
     }
 
-    .bgm-toggle-btn {
-      position: fixed;
-      top: 50px;
-      right: 20px;
-      z-index: 9999;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      background: rgba(255, 255, 255, 0.85);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-
     /* 공유 버튼 */
     .share-section {
       padding: 30px 20px 20px;
@@ -512,15 +519,17 @@
     <source src="image/soulprodmusic-welcome-to-korea-173264.mp3" type="audio/mpeg">
   </audio>
 
-  <button class="bgm-toggle-btn" id="bgmToggleBtn" onclick="toggleBGM()">
-    <span id="bgmIcon">🔇</span>
-  </button>
-  
-  <!-- 언어 변환 버튼 -->
-  <div class="lang-switcher">
-    <button class="lang-btn active" id="btn-ko" onclick="setLanguage('ko')">한</button>
-    <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
-    <button class="lang-btn" id="btn-de" onclick="setLanguage('de')">DE</button>
+  <!-- 상단 컨트롤 (음악 버튼 + 언어 변환 버튼) -->
+  <div class="top-controls">
+    <button class="bgm-toggle-btn" id="bgmToggleBtn" onclick="toggleBGM()" aria-label="Toggle Background Music">
+      <span id="bgmIcon">🎵</span>
+    </button>
+    
+    <div class="lang-switcher">
+      <button class="lang-btn active" id="btn-ko" onclick="setLanguage('ko')">한</button>
+      <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
+      <button class="lang-btn" id="btn-de" onclick="setLanguage('de')">DE</button>
+    </div>
   </div>
 
   <!-- 1. 오프닝 비디오 -->
@@ -585,7 +594,7 @@
         <div class="google-map-box" style="border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
           <iframe src="https://maps.google.com/maps?q=메이필드호텔(Mayfield%20Hotel)&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="300" style="border:0; display:block;" allowfullscreen="" loading="lazy"></iframe>
           <a href="https://maps.app.goo.gl/rB1XFjP8S8x6Bf8j9" target="_blank" style="text-decoration: none;">
-            <div class="map-btn-bar" data-i18n="btnOpenMap">📍 Google Maps 앱에서 열기</div>
+            <div class="map-btn-bar" data-i18n="btnOpenMap">📍 Google Maps 앱에서 위치 보기</div>
           </a>
         </div>
 
@@ -697,6 +706,9 @@
           <label data-i18n="lblName">성함</label>
           <input type="text" id="guestName" required>
 
+          <label data-i18n="lblPlusOne">동반인 성함 (동반인 참석 시 기재)</label>
+          <input type="text" id="plusOneName" placeholder="e.g. Plus-one name">
+
           <label data-i18n="lblAttend">참석 여부</label>
           <select id="attendance">
             <option value="Yes" data-i18n="optYes">Ja/Yes/참석합니다</option>
@@ -787,7 +799,7 @@
         introVideoSection.style.display = 'none';
         mainContent.classList.add('show');
         initGallerySwiper();
-        initLightbox(); // 👈 오프닝 완료 시 라이트박스 및 클릭 이벤트 초기화
+        initLightbox();
       }, 1500);
     }
 
@@ -882,6 +894,7 @@
         faq5: "특별한 드레스 코드는 없으니 편하게 오시면 됩니다! 전통혼례인 만큼 한복을 입고 오셔도 좋고, 평소에 입는 단정한 옷차림도 좋습니다. 기쁜 마음으로 함께해주세요!",
         rsvpDeadline: "원활한 예식 준비를 위해 8월 1일까지 참석 여부를 알려주세요.",
         lblName: "성함 (Name)",
+        lblPlusOne: "동반인 성함 (동반인 참석 시 기재)",
         lblAttend: "참석 여부",
         optYes: "Ja/Yes/참석합니다",
         optNo: "Nein/No/마음으로 참석합니다",
@@ -919,6 +932,7 @@
         faq5: "Please come in whatever you feel comfortable and nice in! You are very welcome to wear a Hanbok if you'd like, or simply your favorite outfit. :)",
         rsvpDeadline: "Please kindly respond by August 1st.",
         lblName: "Name",
+        lblPlusOne: "Plus-one Name (if applicable)",
         lblAttend: "Attendance",
         optYes: "Ja/Yes/참석합니다",
         optNo: "Nein/No/마음으로 참석합니다",
@@ -933,7 +947,7 @@
         msgCopySuccess: "Link copied!"
       },
       de: {
-        invitationBody: "Was auf zwei verschiedenen Seiten der Welt begann, wird zu unserer gemeinsamen Geschichte.<br><br>Wir heiraten!<br><br>Wir laden dich herzlich ein, diesen besonderen Tag gemeinsam mit uns in Korea zu feiern.<br><br><span class=\"invitation-name\">🤵 Kilian Scheffter</span><br><span class=\"invitation-name\">👰 Soyeon Jun</span>",
+        invitationBody: "Was auf verschiedenen Seiten der Welt begann, wird zu unserer gemeinsamen Geschichte.<br><br>Wir heiraten!<br><br>Wir laden dich herzlich ein, diesen besonderen Tag gemeinsam mit uns in Korea zu feiern.<br><br><span class=\"invitation-name\">🤵 Kilian Scheffter</span><br><span class=\"invitation-name\">👰 Soyeon Jun</span>",
         dateText: "26. September 2027 13 Uhr",
         venueText: "Mayfield Hotel, Choryecheong",
         lblDays: "Tage", lblHours: "Std", lblMins: "Min", lblSecs: "Sek",
@@ -957,6 +971,7 @@
         faq5: "Zieht einfach das an, worin ihr euch wohlfühlt und was schick ist! Wer möchte, darf natürlich gerne eine Hanbok tragen, aber eure normale schicke Kleidung passt auch perfekt.",
         rsvpDeadline: "Bitte antwortet uns bis zum 1. August.",
         lblName: "Name",
+        lblPlusOne: "Name der Begleitperson (falls zutreffend)",
         lblAttend: "Teilnahme",
         optYes: "Ja/Yes/참석합니다",
         optNo: "Nein/No/마음으로 참석합니다",
@@ -1048,6 +1063,7 @@
       e.preventDefault();
       const formData = {
         name: document.getElementById('guestName').value,
+        plusOne: document.getElementById('plusOneName').value,
         attendance: document.getElementById('attendance').value,
         diet: document.getElementById('diet').value,
         message: document.getElementById('message').value
