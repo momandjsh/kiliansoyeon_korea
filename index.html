@@ -583,8 +583,7 @@
           <li class="timeline-item"><div class="timeline-time">1:00 PM</div><div class="timeline-desc" data-i18n="t2">전통혼례 시작</div></li>
           <li class="timeline-item"><div class="timeline-time">2:00 PM</div><div class="timeline-desc" data-i18n="t3">점심 식사</div></li>
           <li class="timeline-item"><div class="timeline-time">3:30 PM</div><div class="timeline-desc" data-i18n="t4">휴식 및 자유 시간 (충전 시간)</div></li>
-          <li class="timeline-item"><div class="timeline-time">7:00 PM</div><div class="timeline-desc" data-i18n="t5">저녁 식사 모임</div></li>
-          <li class="timeline-item"><div class="timeline-time">9:00 PM</div><div class="timeline-desc" data-i18n="t6">애프터 파티 시작 (Open End)</div></li>
+          <li class="timeline-item"><div class="timeline-time">~ 7:00 PM</div><div class="timeline-desc" data-i18n="t5">저녁 식사 및 애프터 파티</div></li>
         </ul>
       </section>
 
@@ -652,6 +651,10 @@
           <div class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faqQ5">무엇을 입고 가야하나요?</span> <span>+</span></div>
           <div class="faq-answer" data-i18n="faq5"></div>
         </div>
+        <div class="faq-item" id="faqItem6">
+          <div class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faqQ6"></span> <span>+</span></div>
+          <div class="faq-answer" data-i18n="faq6"></div>
+        </div>
       </section>
 
       <!-- 갤러리 -->
@@ -706,14 +709,17 @@
           <label data-i18n="lblName">성함</label>
           <input type="text" id="guestName" required>
 
-          <label data-i18n="lblPlusOne">동반인 성함 (동반인 참석 시 기재)</label>
-          <input type="text" id="plusOneName" placeholder="Plus-one name">
-
           <label data-i18n="lblAttend">참석 여부</label>
-          <select id="attendance">
+          <select id="attendance" onchange="handleAttendanceChange()">
             <option value="Yes" data-i18n="optYes">Ja/Yes/참석합니다</option>
+            <option value="YesWithPlusOne" data-i18n="optYesPlusOne">동반인과 함께 참석합니다</option>
             <option value="No" data-i18n="optNo">Nein/No/마음으로 참석합니다</option>
           </select>
+
+          <div id="plusOneContainer" style="display: none;">
+            <label data-i18n="lblPlusOne">동반인 성함</label>
+            <input type="text" id="plusOneName" placeholder="Plus-one name">
+          </div>
 
           <label data-i18n="lblDiet">식성 및 알레르기 안내</label>
           <input type="text" id="diet" placeholder="e.g. Vegetarian, Nut allergy">
@@ -878,8 +884,7 @@
         t2: "전통혼례 시작",
         t3: "점심 식사",
         t4: "휴식 및 자유 시간 (충전 시간)",
-        t5: "저녁 식사 모임",
-        t6: "애프터 파티 시작 (Open End)",
+        t5: "저녁 식사 및 애프터 파티 (소연 & 킬리안의 친구 및 직계 가족)",
         travelDesc: "<strong>📍 주소:</strong> 서울특별시 강서구 방화대로 94 메이필드호텔<br><br><strong>🚗 주차 (Parking):</strong><br>메이필드 호텔 내에 하객분들을 위한 주차 공간이 충분히 마련되어 있습니다. 5시간 무료 주차 가능합니다.<br><br><strong>🚇 지하철 & 셔틀버스:</strong><br>- <strong>탑승역:</strong> 5호선/9호선/공항철도 김포공항역<br>- <strong>셔틀 운행:</strong> 예식 1시간 전부터 20분 간격 운행<br>- <strong>승차 위치:</strong> 김포공항역 국내선 청사 1층 중앙차로 A구역 (GATE 6번 맞은편 예약택시 승차존)<br><br><strong>🚌 주요 역별 시내버스 안내:</strong><br>('강서면허시험장/메이필드호텔' 정류장 하차)<br>• <strong> 간선버스:</strong> 650, 651, 653<br>• <strong>지선버스:</strong> 6628, 6630, 6642<br><br><strong>🚕 택시:</strong><br>- 김포공항역에서 택시 탑승 시 약 5~10분 소요",
         btnOpenMap: "📍 Google Maps에서 위치 보기",
         faqQ1: "아이들을 동반해도 되나요?",
@@ -892,11 +897,14 @@
         faq4: "야외 초례청이지만 우천 시를 대비해 전체를 덮을 수 있는 대형 천막이 설치되어 있으니 비가 와도 걱정 없이 예식을 즐기실 수 있습니다.",
         faqQ5: "무엇을 입고 가나요?",
         faq5: "특별한 드레스 코드는 없으니 편하게 오시면 됩니다! 전통혼례인 만큼 한복을 입고 오셔도 좋고, 평소에 입는 단정한 옷차림도 좋습니다. 기쁜 마음으로 함께해주세요!",
+        faqQ6: "",
+        faq6: "",
         rsvpDeadline: "원활한 예식 준비를 위해 8월 1일까지 참석 여부를 알려주세요.",
         lblName: "성함 (Name)",
-        lblPlusOne: "동반인 성함 (동반인 참석 시 기재)",
+        lblPlusOne: "동반인 성함",
         lblAttend: "참석 여부",
         optYes: "Ja/Yes/참석합니다",
+        optYesPlusOne: "동반인과 함께 참석합니다",
         optNo: "Nein/No/마음으로 참석합니다",
         lblDiet: "식성 및 알레르기 안내",
         lblMessage: "축하 메시지",
@@ -917,9 +925,9 @@
         t2: "Traditional Wedding Ceremony begins",
         t3: "Lunch",
         t4: "Break & Free time (Recharge time)",
-        t5: "Dinner Gathering",
-        t6: "After Party (Open End)",
+        t5: "Dinner & After Party (for Soyeon's & Kilian's friends and close family)",
         travelDesc: "<strong>📍 Address:</strong> Mayfield Hotel, 94 Banghwa-daero, Gangseo-gu, Seoul<br><br><strong>🚗 Parking:</strong><br>Ample parking space is available for guests on-site. Free parking is available for up to 5 hours.<br><br><strong>🚇 Subway & Shuttle Bus:</strong><br>- <strong>Station:</strong> Gimpo Int'l Airport Station (Line 5, Line 9, Airport Railroad, Gimpo Gold, SeoHae)<br>- <strong>Shuttle Schedule:</strong> Runs every 20 minutes:<br>12:00, 12:20, 12:40, 13:00.<br>- <strong>Shuttle Pickup Location:</strong> Domestic Terminal 1F, Outside, Area A (opposite of GATE 6, Reserved Taxi Zone)<br><br><strong>🚌 City Bus:</strong><br>(Get off at 'Gangseo Driver's License Examination Site / Mayfield Hotel')<br>• <strong>Blue Bus:</strong> 650, 651, 653<br>• <strong>Green Bus:</strong> 6628, 6630, 6642<br><br><strong>🚕 Taxi:</strong><br>- Approx. 5–10 minutes from Gimpo Int'l Airport Station.",
+        btnOpenMap: "📍 Google Maps에서 위치 보기",
         faqQ1: "Are children allowed?",
         faq1: "Yes, absolutely! Children are warmly invited as well.",
         faqQ2: "Is parking available?",
@@ -930,11 +938,14 @@
         faq4: "The courtyard is outdoors, but a large tent is installed to cover the area in case of rain, so the ceremony will proceed beautifully regardless of the weather.",        
         faqQ5: "What should I wear?",
         faq5: "Please come in whatever you feel comfortable and nice in! You are very welcome to wear a Hanbok if you'd like, or simply your favorite outfit. :)",
+        faqQ6: "Is there a travel guide available?",
+        faq6: "In preparation :). It will be available here soon.",
         rsvpDeadline: "Please kindly respond by August 1st.",
         lblName: "Name",
-        lblPlusOne: "Plus-one Name (if applicable)",
+        lblPlusOne: "Plus-one Name",
         lblAttend: "Attendance",
         optYes: "Ja/Yes/참석합니다",
+        optYesPlusOne: "Yes with plus one",
         optNo: "Nein/No/마음으로 참석합니다",
         lblDiet: "Dietary Restrictions / Allergies",
         lblMessage: "Message for the couple",
@@ -955,8 +966,7 @@
         t2: "Traditionelle Hochzeitszeremonie",
         t3: "Mittagessen",
         t4: "Pause & Freizeit",
-        t5: "Gemeinsames Abendessen",
-        t6: "After-Party (Open End)",
+        t5: "Abendessen & After-Party (für Freunde & engste Familie von Soyeon & Kilian)",
         travelDesc: "<strong>📍 Adresse:</strong> Mayfield Hotel, 94 Banghwa-daero, Gangseo-gu, Seoul<br><br><strong>🚗 Parken:</strong><br>Auf dem Hotelgelände stehen ausreichend Parkplätze für unsere Gäste zur Verfügung. Kostenloses Parken ist für bis zu 5 Stunden möglich.<br><br><strong>🚇 U-Bahn & Shuttlebus:</strong><br>- <strong>Station:</strong> Gimpo Int'l Airport Station (U-Bahn-Linien 5, 9, Airport Railroad, Gimpo Gold, SeoHae)<br>- <strong>Shuttle-Zeiten:</strong> Abfahrt alle 20 Minuten:<br>12:00, 12:20, 12:40, 13:00 Uhr.<br>- <strong>Shuttle-Abholort:</strong> Inlandsterminal EG, Außenbereich A zone (gegenüber von GATE 6 bei der Reservierungstaxi-Zone)<br><br><strong>🚌 Busverbindungen:</strong><br>(Haltestelle: 'Gangseo Driver's License Examination Site / Mayfield Hotel')<br>• <strong>Hauptbusse (Blau):</strong> 650, 651, 653<br>• <strong>Lokalbusse (Grün):</strong> 6628, 6630, 6642<br><br><strong>🚕 Taxi:</strong><br>- Ca. 5–10 Minuten Fahrtzeit von der Gimpo Airport Station.",
         btnOpenMap: "📍 In Google Maps öffnen",
         faqQ1: "Sind Kinder willkommen?",
@@ -969,11 +979,14 @@
         faq4: "Die Zeremonie findet im Freien statt, aber es gibt ein großes Zeltdach, sodass wir auch bei Regen im Trockenen feiern können.",
         faqQ5: "Was soll ich anziehen?",
         faq5: "Zieht einfach das an, worin ihr euch wohlfühlt und was schick ist! Wer möchte, darf natürlich gerne eine Hanbok tragen, aber eure normale schicke Kleidung passt auch perfekt.",
+        faqQ6: "Gibt es einen Reiseführer?",
+        faq6: "In Vorbereitung :). Er wird hier bald verfügbar sein.",
         rsvpDeadline: "Bitte antwortet uns bis zum 1. August.",
         lblName: "Name",
-        lblPlusOne: "Name deiner Begleitperson (falls zutreffend)",
+        lblPlusOne: "Name der Begleitperson",
         lblAttend: "Teilnahme",
         optYes: "Ja/Yes/참석합니다",
+        optYesPlusOne: "Ja mit Begleitperson",
         optNo: "Nein/No/마음으로 참석합니다",
         lblDiet: "Unverträglichkeiten / Allergien",
         lblMessage: "Nachricht an das Brautpaar",
@@ -1014,6 +1027,12 @@
         }
       });
 
+      // Show/hide travel guide FAQ for Korean vs English/German
+      const faqItem6 = document.getElementById('faqItem6');
+      if (faqItem6) {
+        faqItem6.style.display = (lang === 'ko') ? 'none' : 'block';
+      }
+
       const currentUrl = new URL(window.location.href);
       currentUrl.searchParams.set('lang', lang);
       window.history.replaceState({}, '', currentUrl.href);
@@ -1044,6 +1063,20 @@
       }
     }
 
+    function handleAttendanceChange() {
+      const attendance = document.getElementById('attendance').value;
+      const plusOneContainer = document.getElementById('plusOneContainer');
+      const plusOneName = document.getElementById('plusOneName');
+      if (attendance === 'YesWithPlusOne') {
+        plusOneContainer.style.display = 'block';
+        plusOneName.required = true;
+      } else {
+        plusOneContainer.style.display = 'none';
+        plusOneName.required = false;
+        plusOneName.value = '';
+      }
+    }
+
     function initGallerySwiper() {
       if (gallerySwiper) return;
       gallerySwiper = new Swiper('.gallery-swiper', {
@@ -1061,15 +1094,20 @@
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzdliwB0Ji-1XeqFR2ozdc4iXvQh3rSaFz3TuctDsWHZNkjJpw8sP667D234EAa5cGCzA/exec';
     function handleRsvpSubmit(e) {
       e.preventDefault();
+      const attendanceVal = document.getElementById('attendance').value;
       const formData = {
         name: document.getElementById('guestName').value,
-        plusOne: document.getElementById('plusOneName').value,
-        attendance: document.getElementById('attendance').value,
+        attendance: attendanceVal,
+        plusOne: attendanceVal === 'YesWithPlusOne' ? document.getElementById('plusOneName').value : '',
         diet: document.getElementById('diet').value,
         message: document.getElementById('message').value
       };
       fetch(scriptURL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) })
-      .then(() => { alert('RSVP가 제출되었습니다!'); e.target.reset(); })
+      .then(() => { 
+        alert('RSVP가 제출되었습니다!'); 
+        e.target.reset(); 
+        handleAttendanceChange(); 
+      })
       .catch(() => alert('오류가 발생했습니다.'));
     }
 
@@ -1158,6 +1196,7 @@
       setLanguage(initialLang);
       updateCountdown();
       initLightbox();
+      handleAttendanceChange();
     });
   </script>
 </body>
