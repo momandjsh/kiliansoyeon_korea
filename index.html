@@ -914,7 +914,9 @@
         btnKakao: "💛 카카오내비",
         btnTmap: "💙 T맵",
         videoHint: "화면을 터치해주세요",
-        msgCopySuccess: "링크가 복사되었습니다!"
+        msgCopySuccess: "링크가 복사되었습니다!",
+        msgRsvpSuccess: "RSVP가 성공적으로 제출되었습니다. 감사합니다!",
+        msgRsvpError: "제출 중 오류가 발생했습니다. 다시 시도해주세요."
       },
       en: {
         invitationBody: "What began on opposite sides of the world becomes our shared story.<br><br>We are getting married!<br><br>We warmly invite you to join us on our special day as we celebrate our wedding in Korea.<br><br><span class=\"invitation-name\">🤵 Kilian Scheffter</span><br><span class=\"invitation-name\">👰 Soyeon Jun</span>",
@@ -955,7 +957,9 @@
         btnKakao: "💛 Kakao Navi",
         btnTmap: "💙 Tmap",
         videoHint: "Please touch the screen",
-        msgCopySuccess: "Link copied!"
+        msgCopySuccess: "Link copied!",
+        msgRsvpSuccess: "Your RSVP has been successfully submitted. Thank you!",
+        msgRsvpError: "An error occurred while submitting. Please try again."
       },
       de: {
         invitationBody: "Was auf verschiedenen Seiten der Welt begann, wird zu unserer gemeinsamen Geschichte.<br><br>Wir heiraten!<br><br>Wir laden dich herzlich ein, diesen besonderen Tag gemeinsam mit uns in Korea zu feiern.<br><br><span class=\"invitation-name\">🤵 Kilian Scheffter</span><br><span class=\"invitation-name\">👰 Soyeon Jun</span>",
@@ -996,7 +1000,9 @@
         btnKakao: "💛 Kakao Navi",
         btnTmap: "💙 Tmap",
         videoHint: "Bitte klicken Sie auf den Bildschirm.",
-        msgCopySuccess: "Link in die Zwischenablage kopiert!"
+        msgCopySuccess: "Link in die Zwischenablage kopiert!",
+        msgRsvpSuccess: "Deine RSVP wurde erfolgreich übermittelt. Vielen Dank!",
+        msgRsvpError: "Beim Senden ist ein Fehler aufgetreten. Bitte versuche es erneut."
       }
     };
 
@@ -1092,8 +1098,22 @@
     }
 
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzdliwB0Ji-1XeqFR2ozdc4iXvQh3rSaFz3TuctDsWHZNkjJpw8sP667D234EAa5cGCzA/exec';
+    
     function handleRsvpSubmit(e) {
       e.preventDefault();
+      
+      // 현재 선택된 언어 가져오기 (기본값 ko)
+      const urlParams = new URLSearchParams(window.location.search);
+      const currentLang = urlParams.get('lang') || document.body.getAttribute('data-lang') || 'ko';
+      
+      const successMsg = (translations[currentLang] && translations[currentLang].msgRsvpSuccess) 
+                         ? translations[currentLang].msgRsvpSuccess 
+                         : translations['ko'].msgRsvpSuccess;
+                         
+      const errorMsg = (translations[currentLang] && translations[currentLang].msgRsvpError) 
+                       ? translations[currentLang].msgRsvpError 
+                       : translations['ko'].msgRsvpError;
+
       const attendanceVal = document.getElementById('attendance').value;
       const formData = {
         name: document.getElementById('guestName').value,
@@ -1102,13 +1122,21 @@
         diet: document.getElementById('diet').value,
         message: document.getElementById('message').value
       };
-      fetch(scriptURL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) })
+
+      fetch(scriptURL, { 
+        method: 'POST', 
+        mode: 'no-cors', 
+        headers: { 'Content-Type': 'application/json' }, 
+        body: JSON.stringify(formData) 
+      })
       .then(() => { 
-        alert('RSVP가 제출되었습니다!'); 
+        alert(successMsg); // 👈 언어에 맞는 성공 메시지 출력
         e.target.reset(); 
         handleAttendanceChange(); 
       })
-      .catch(() => alert('오류가 발생했습니다.'));
+      .catch(() => {
+        alert(errorMsg); // 👈 언어에 맞는 오류 메시지 출력
+      });
     }
 
     function shareWhatsApp() { window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(window.location.href)}`, '_blank'); }
